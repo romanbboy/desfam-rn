@@ -10,9 +10,8 @@ import {Input, MyButton} from "../../components/elements";
 import {validateRegistration} from "../../utils/validate";
 import {FieldNotice} from "../../components/filed-notice";
 import actions from "../../store/actions";
-import {View} from "react-native";
 
-const RegistrationScreen = ({navigation, route}) => {
+const RegistrationScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const [isSubmitting, setIsSubmitting] = useState(false);

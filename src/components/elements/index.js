@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import {THEME} from "../../styles";
-import {Pressable, TouchableOpacity, TouchableWithoutFeedback, View} from "react-native";
+import {TouchableWithoutFeedback} from "react-native";
 import {MyText} from "../typography";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {faSpinner} from '@fortawesome/free-solid-svg-icons'
-
+import Spinner from "../spinner";
 
 // INPUT
 const InputStyled = styled.TextInput`
@@ -49,7 +47,7 @@ export const MyButton = (props) => {
                               disabled={props.disabled} >
       <ButtonStyled styles={{backgroundColor: props.disabled ? THEME.GRAY_COLOR : bgColor}}>
         {!props.isSubmitting && <MyText style={{color: '#fff'}}>{props.children}</MyText>}
-        {!!props.isSubmitting && <FontAwesomeIcon icon={ faSpinner } style={{color: '#fff'}} size={16} spin/>}
+        {!!props.isSubmitting && <Spinner />}
       </ButtonStyled>
     </TouchableWithoutFeedback>
   )
