@@ -19,6 +19,14 @@ export default {
     }
   },
 
+  async removeItem (value) {
+    try {
+      await AsyncStorage.removeItem(value)
+    } catch(e) {
+      console.log('-----> ', e);
+    }
+  },
+
   async clearAll() {
     try {
       await AsyncStorage.clear()

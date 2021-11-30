@@ -1,4 +1,5 @@
 import UserService from "../../services/UserService";
+import asyncStorage from "../../utils/asyncStorage";
 
 const userActions = {
   getCurrentUserSuccess: (payload) => ({type: 'GET_CURRENT_USER_SUCCESS', payload}),
@@ -19,7 +20,7 @@ const userActions = {
 
   logoutSuccess: () => ({type: 'LOGOUT_SUCCESS'}),
   logout: () => async (dispatch) => {
-    localStorage.removeItem('accessToken');
+    await asyncStorage.removeItem('accessToken');
     dispatch(userActions.logoutSuccess());
   },
 };

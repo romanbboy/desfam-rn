@@ -6,6 +6,7 @@ import SvgLogo from '../icons/logo';
 import {Link} from '../typography'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import actions from "../../store/actions";
 
 const HeaderWrap = styled.View`
   flex-direction: row;
@@ -24,7 +25,12 @@ const HeaderPanel = styled.View`
 const Header = ({navigation, route}) => {
   const dispatch = useDispatch();
 
-  const currentUser = useSelector(state => state.auth.currentUser)
+  const currentUser = useSelector(state => state.auth.currentUser);
+
+  const logOut = () => {
+    dispatch(actions.logout())
+      .then(() => navigation.navigate('Login'));
+  }
 
   return (
     <HeaderWrap>
@@ -55,7 +61,7 @@ const Header = ({navigation, route}) => {
           </Link>
           <Image source={require('../../../assets/img/avatar-plug.jpg')}
                  style={{width: 60, height: 60, borderRadius: 50}} />
-          <Link onPress={() => dispatch({type: 'LOG_OUT'})}>
+          <Link onPress={logOut}>
             <FontAwesomeIcon icon={ faSignOutAlt } style={{color: '#ee246d'}} size={20} />
           </Link>
         </Fragment>}
