@@ -5,7 +5,8 @@ import { Provider } from 'react-redux'
 import {store} from './src/store'
 import AppNavigation from './src/navigation/AppNavigation'
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
+import {ApplicationProvider, IconRegistry, Layout, Text} from '@ui-kitten/components';
+import {EvaIconsPack} from "@ui-kitten/eva-icons";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false)
@@ -21,11 +22,14 @@ const App = () => {
   }
 
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      <Provider store={store}>
-        <AppNavigation />
-      </Provider>
-    </ApplicationProvider>
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <Provider store={store}>
+          <AppNavigation />
+        </Provider>
+      </ApplicationProvider>
+    </>
   )
 }
 

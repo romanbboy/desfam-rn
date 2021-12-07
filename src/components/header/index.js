@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import actions from "../../store/actions";
 import Picshow from "../picshow";
+import {Icon} from "@ui-kitten/components";
 
 const HeaderWrap = styled.View`
   flex-direction: row;
@@ -29,7 +30,7 @@ const Header = ({navigation, route}) => {
   const currentUser = useSelector(state => state.auth.currentUser);
 
   const getAvatar = () => {
-    if (currentUser.avatar) {
+    if (currentUser?.avatar) {
       let prefix = process.env.NODE_ENV === 'development' ? 'http://10.0.0.135' : '';
       return {uri: `${prefix}${currentUser.avatar}`};
     }
@@ -64,13 +65,11 @@ const Header = ({navigation, route}) => {
 
         {currentUser && <Fragment>
           <Link onPress={() => navigation.navigate('Settings')}>
-            <FontAwesomeIcon icon={ faCog }
-                             style={{color: route.name === 'Settings' ? '#5b687f' : '#828ea5'}}
-                             size={40} />
+            <Icon name='settings' fill={route.name === 'Settings' ? '#5b687f' : '#828ea5'} style={{width: 28, height: 28}} />
           </Link>
           <Picshow source={getAvatar()} />
           <Link onPress={logOut}>
-            <FontAwesomeIcon icon={ faSignOutAlt } style={{color: '#ee246d'}} size={20} />
+            <Icon name='log-out' fill='#ee246d' style={{width: 25, height: 25}} />
           </Link>
         </Fragment>}
       </HeaderPanel>

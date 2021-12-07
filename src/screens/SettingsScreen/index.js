@@ -90,7 +90,7 @@ const SettingsScreen = ({navigation}) => {
   const getSettingsAvatar = () => {
     if (tempAvatar) return {uri: tempAvatar};
 
-    if (currentUser.avatar) {
+    if (currentUser?.avatar) {
       let prefix = process.env.NODE_ENV === 'development' ? 'http://10.0.0.135' : '';
       return {uri: `${prefix}${currentUser.avatar}`};
     }
