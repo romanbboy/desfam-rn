@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Platform} from "react-native";
+import {Image, Platform, View} from "react-native";
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from "react-redux";
 import * as ImagePicker from 'expo-image-picker';
@@ -13,6 +13,7 @@ import {validateSettings} from "../../utils/validate";
 import {FieldNotice} from "../../components/filed-notice";
 import actions from "../../store/actions";
 import {FlexBlock} from "../../components/flex-block";
+import Picshow from "../../components/picshow";
 
 const SettingsScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -87,12 +88,13 @@ const SettingsScreen = ({navigation}) => {
   };
 
   const getSettingsAvatar = () => {
-    if (tempAvatar) return tempAvatar;
+    if (tempAvatar) return {uri: tempAvatar};
 
     if (currentUser.avatar) {
       let prefix = process.env.NODE_ENV === 'development' ? 'http://10.0.0.135' : '';
-      return `${prefix}${currentUser.avatar}`;
+      return {uri: `${prefix}${currentUser.avatar}`};
     }
+    return require('../../../assets/img/avatar-plug.jpg')
   };
 
   return (
@@ -129,9 +131,9 @@ const SettingsScreen = ({navigation}) => {
           <FormGroup style={{marginBottom: 20}}>
             <FormLabel>Аватар</FormLabel>
             <FlexBlock alignItems="center">
-              <Image source={getSettingsAvatar() ? {uri: getSettingsAvatar()} : require('./avatar-plug.jpg')}
-                     style={{width: 60, height: 60, borderRadius: 50, marginRight: 20}} />
-
+              <View style={{marginRight: 20}}>
+                <Picshow source={getSettingsAvatar()} />
+              </View>
               <MyButton onPress={pickImage} >Новый аватар</MyButton>
             </FlexBlock>
           </FormGroup>

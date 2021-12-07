@@ -4,6 +4,8 @@ import {bootstrap} from './src/bootstrap'
 import { Provider } from 'react-redux'
 import {store} from './src/store'
 import AppNavigation from './src/navigation/AppNavigation'
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
 
 const App = () => {
   const [isReady, setIsReady] = useState(false)
@@ -19,9 +21,11 @@ const App = () => {
   }
 
   return (
-    <Provider store={store}>
-      <AppNavigation />
-    </Provider>
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <Provider store={store}>
+        <AppNavigation />
+      </Provider>
+    </ApplicationProvider>
   )
 }
 

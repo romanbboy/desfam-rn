@@ -7,6 +7,7 @@ import {Link} from '../typography'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import actions from "../../store/actions";
+import Picshow from "../picshow";
 
 const HeaderWrap = styled.View`
   flex-direction: row;
@@ -26,6 +27,14 @@ const Header = ({navigation, route}) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.currentUser);
+
+  const getAvatar = () => {
+    if (currentUser.avatar) {
+      let prefix = process.env.NODE_ENV === 'development' ? 'http://10.0.0.135' : '';
+      return {uri: `${prefix}${currentUser.avatar}`};
+    }
+    return require('../../../assets/img/avatar-plug.jpg');
+  };
 
   const logOut = () => {
     dispatch(actions.logout())
@@ -59,8 +68,7 @@ const Header = ({navigation, route}) => {
                              style={{color: route.name === 'Settings' ? '#5b687f' : '#828ea5'}}
                              size={40} />
           </Link>
-          <Image source={require('../../../assets/img/avatar-plug.jpg')}
-                 style={{width: 60, height: 60, borderRadius: 50}} />
+          <Picshow source={getAvatar()} />
           <Link onPress={logOut}>
             <FontAwesomeIcon icon={ faSignOutAlt } style={{color: '#ee246d'}} size={20} />
           </Link>

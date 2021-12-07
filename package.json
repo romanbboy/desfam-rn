@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@eva-design/eva": "^2.1.1",
     "@expo/vector-icons": "^12.0.0",
     "@fortawesome/fontawesome-svg-core": "1.2.4",
     "@fortawesome/free-solid-svg-icons": "*",
@@ -15,6 +16,7 @@
     "@react-native-async-storage/async-storage": "^1.15.13",
     "@react-navigation/native": "6.0.2",
     "@react-navigation/stack": "*",
+    "@ui-kitten/components": "^5.1.1",
     "axios": "^0.24.0",
     "expo": "~43.0.2",
     "expo-app-loading": "~1.2.1",
@@ -40,7 +42,8 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@expo/webpack-config": "^0.16.11"
   },
   "private": true
 }
