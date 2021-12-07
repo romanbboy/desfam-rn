@@ -17,11 +17,10 @@ const AppNavigation = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getCurrentUser = async () => {
+    (async () => {
       const accessToken = await asyncStorage.getData('accessToken');
       accessToken && dispatch(actions.getCurrentUser());
-    }
-    getCurrentUser();
+    })();
   }, []);
 
   return (

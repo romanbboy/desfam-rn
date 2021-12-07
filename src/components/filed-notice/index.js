@@ -8,7 +8,7 @@ export const FieldNotice = styled.Text`
   color: ${THEME.RED_COLOR};
   
   ${props => (props.type === 'success' && css`
-    color: ${THEME.GREEN_COLOR_DARK};
+    color: ${THEME.GREEN_SUCCESS};
   `)}
   
   ${props => (props.type === 'error' && css`

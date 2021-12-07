@@ -57,7 +57,7 @@ const Header = ({navigation, route}) => {
           <Link onPress={() => navigation.navigate('Settings')}>
             <FontAwesomeIcon icon={ faCog }
                              style={{color: route.name === 'Settings' ? '#5b687f' : '#828ea5'}}
-                             size={20} />
+                             size={40} />
           </Link>
           <Image source={require('../../../assets/img/avatar-plug.jpg')}
                  style={{width: 60, height: 60, borderRadius: 50}} />

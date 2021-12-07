@@ -12,6 +12,12 @@ export const H1Text = styled.Text`
   font-size: 28px;
   font-family: open-semibold;
   color: ${THEME.TEXT_COLOR}
+`;
+
+export const H2Text = styled.Text`
+  font-size: 21px;
+  font-family: open-semibold;
+  color: ${THEME.TEXT_COLOR}
 `
 
 export const Link = styled.Text`
