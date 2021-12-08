@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 import {THEME} from "../../styles";
 
 
@@ -17,6 +17,12 @@ export const FormLabel = styled.Text`
   color: ${THEME.TEXT_COLOR};
   font-size: 14px;
   font-family: open-regular;
+  
+  ${props => props.weight === 'bold' && css`
+    line-height: 40px;
+    font-size: 16px;
+    font-family: open-semibold;
+  `}
 `
 
 export const FormActions = styled.View`

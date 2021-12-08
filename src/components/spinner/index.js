@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
-const Spinner = () => {
+const Spinner = ({size, color}) => {
   const spinValue = new Animated.Value(0);
 
   Animated.loop(
@@ -17,7 +17,7 @@ const Spinner = () => {
 
   return (
     <Animated.View style={{transform: [{rotate: spin}]}}>
-      <FontAwesomeIcon icon={ faSpinner } style={{color: '#fff'}} size={16}/>
+      <FontAwesomeIcon icon={ faSpinner } style={{color: color || '#fff'}} size={size || 16}/>
     </Animated.View>
   )
 }

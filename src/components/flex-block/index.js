@@ -6,4 +6,6 @@ export const FlexBlock = styled.View`
   flex: ${props => props.flex || 'auto'};
   align-items: ${props => props.alignItems || 'flex-start'};
   justify-content: ${props => props.justifyContent || 'flex-start'};
+
+  ${props => props.styles}
 `;

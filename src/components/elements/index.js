@@ -4,6 +4,7 @@ import {THEME} from "../../styles";
 import {TouchableWithoutFeedback} from "react-native";
 import {MyText} from "../typography";
 import Spinner from "../spinner";
+import {Icon} from "@ui-kitten/components";
 
 // INPUT
 const InputStyled = styled.TextInput`
@@ -11,6 +12,7 @@ const InputStyled = styled.TextInput`
   font-size: 14px;
   border-radius: 5px;
   padding: 8px 6px 6px;
+  width: 100%;
   font-family: open-regular;
   ${props => props.styles}
 `
@@ -52,4 +54,20 @@ export const MyButton = (props) => {
     </TouchableWithoutFeedback>
   )
 }
+
+
+export const ButtonTinyStyled = styled.View`
+  ${props => props.styles}
+`
+export const MyButtonTiny = (props) => {
+  return (
+    <TouchableWithoutFeedback onPress={props.onPress} disabled={props.disabled} >
+      <ButtonTinyStyled>
+        {!props.isSubmitting && props.children}
+        {!!props.isSubmitting && <Spinner size={20} color={THEME.BLUE_COLOR_DARK} />}
+      </ButtonTinyStyled>
+    </TouchableWithoutFeedback>
+  )
+}
+
 
