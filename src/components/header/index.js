@@ -1,20 +1,20 @@
-import React, {useState, Fragment} from 'react'
+import React, {Fragment} from 'react'
 import styled from 'styled-components/native';
-import { Pressable, Platform, Image } from 'react-native';
+import {Platform, Pressable} from 'react-native';
 import {useDispatch, useSelector} from "react-redux";
 import SvgLogo from '../icons/logo';
 import {Link} from '../typography'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import actions from "../../store/actions";
 import Picshow from "../picshow";
 import {Icon} from "@ui-kitten/components";
+import {THEME} from "../../styles";
 
 const HeaderWrap = styled.View`
   flex-direction: row;
-  padding: ${Platform.OS === 'ios' ? '50px 20px' : '20px 10px'};
+  padding: ${Platform.OS === 'ios' ? '50px 20px 20px' : '20px 10px'};
   justify-content: space-between;
-  align-items: center
+  align-items: center;
+  background-color: ${THEME.BG_COLOR};
 `;
 
 const HeaderPanel = styled.View`

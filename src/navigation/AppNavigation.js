@@ -10,6 +10,8 @@ import {THEME} from "../styles";
 import asyncStorage from "../utils/asyncStorage";
 import actions from "../store/actions";
 import {useDispatch} from "react-redux";
+import {SafeAreaProvider} from "react-native-safe-area-context";
+import DatebookScreen from "../screens/DatebookScreen";
 
 const Stack = createStackNavigator();
 
@@ -24,20 +26,25 @@ const AppNavigation = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={screenOptions}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Registration" component={RegistrationScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={screenOptions}>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Datebook" component={DatebookScreen} />
+          <Stack.Screen name="Registration" component={RegistrationScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   )
 }
 
 const screenOptions = {
   header: (props) => <Header {...props} />,
-  cardStyle: {backgroundColor: THEME.BG_COLOR}
+  cardStyle: {backgroundColor: THEME.BG_COLOR},
+  headerMode: 'float'
 }
+
 
 export default AppNavigation
