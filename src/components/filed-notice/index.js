@@ -14,4 +14,8 @@ export const FieldNotice = styled.Text`
   ${props => (props.type === 'error' && css`
     color: ${THEME.RED_COLOR};
   `)}
+  
+  ${props => (props.type === 'standard' && css`
+    color: ${THEME.GRAY_COLOR};
+  `)}
 `;

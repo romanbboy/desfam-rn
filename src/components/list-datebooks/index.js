@@ -20,7 +20,7 @@ const ListDatebooks = ({user, datebooks}) => {
         </Styled.ListDatebooksItemIcon>
 
         <Styled.ListDatebooksItemName>
-          <Link onPress={() => navigation.navigate('Datebook')} style={{color: THEME.GREEN_COLOR_DARK}}>
+          <Link onPress={() => navigation.navigate('Datebook', {idDatebook: datebook.id})} style={{color: THEME.GREEN_COLOR_DARK}}>
             {datebook.title}
           </Link>
         </Styled.ListDatebooksItemName>

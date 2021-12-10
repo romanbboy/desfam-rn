@@ -62,7 +62,7 @@ export const ButtonTinyStyled = styled.View`
 export const MyButtonTiny = (props) => {
   return (
     <TouchableWithoutFeedback onPress={props.onPress} disabled={props.disabled} >
-      <ButtonTinyStyled>
+      <ButtonTinyStyled styles={props.style}>
         {!props.isSubmitting && props.children}
         {!!props.isSubmitting && <Spinner size={20} color={THEME.BLUE_COLOR_DARK} />}
       </ButtonTinyStyled>
