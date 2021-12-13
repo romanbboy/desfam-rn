@@ -7,6 +7,7 @@ import AppNavigation from './src/navigation/AppNavigation'
 import * as eva from '@eva-design/eva';
 import {ApplicationProvider, IconRegistry, Layout, Text} from '@ui-kitten/components';
 import {EvaIconsPack} from "@ui-kitten/eva-icons";
+import MyToast from "./src/components/toast";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false)
@@ -29,6 +30,7 @@ const App = () => {
           <AppNavigation />
         </Provider>
       </ApplicationProvider>
+      <MyToast />
     </>
   )
 }

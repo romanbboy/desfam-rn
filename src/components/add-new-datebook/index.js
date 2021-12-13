@@ -11,6 +11,7 @@ import {validateAddNewDatebook} from "../../utils/validate";
 import actions from "../../store/actions";
 import {useDispatch} from "react-redux";
 import styled from "styled-components/native/dist/styled-components.native.esm";
+import ToastService from "../../services/ToastService";
 
 
 export const AddNewDatebookClose = styled.View`
@@ -37,6 +38,7 @@ export const AddNewDatebook = ({onClose}) => {
       dispatch(actions.addDatebook(form))
         .then(() => {
           formikAddNewDatebook.resetForm();
+          ToastService.show('Задачник создан');
           onClose();
         })
         .catch(e => setNoticeAddNewDatebook({msg: e.response.data, type: 'error'}))

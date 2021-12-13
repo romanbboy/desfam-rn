@@ -14,6 +14,7 @@ import UserService from "../../services/UserService";
 import * as yup from "yup";
 import {useSelector} from "react-redux";
 import InvitationService from "../../services/InvitationService";
+import ToastService from "../../services/ToastService";
 
 
 const AddParticipantClose = styled.View`
@@ -35,11 +36,12 @@ const AddParticipant = ({onClose}) => {
       const invite = {datebook, referral: settingsAddParticipant.user};
 
       await InvitationService.add(invite)
-        .then(() => {
+        .then(res => {
           formikAddParticipant.resetForm();
+          ToastService.show(res.data)
           return {};
         })
-        .catch(e => console.log('-----> ', e.response.data))
+        .catch(e => ToastService.show(e.response.data, 'error'))
         .then((res) => {
           setSettingsAddParticipant({...(res ?? settingsAddParticipant), isSubmitting: false})
         });
