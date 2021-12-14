@@ -24,7 +24,7 @@ const DatebookScreen = ({route, navigation}) => {
       <Wrapper>
         {currentUser && datebook && <>
           {/*Блок с выбором настроек*/}
-          <DatebookSettings />
+          <DatebookSettings currentUser={currentUser} datebook={datebook} />
 
 
           <H2Text type="h1">Задачник "{datebook.title}"</H2Text>

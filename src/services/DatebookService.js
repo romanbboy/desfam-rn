@@ -10,4 +10,7 @@ export default {
   async get(id){
     return await api().get(`datebooks/${id}`);
   },
+  async escape(datebook){
+    return await api().get(`datebooks/${datebook.id}/escape`);
+  },
 }

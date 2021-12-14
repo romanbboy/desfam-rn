@@ -14,7 +14,7 @@ import UserService from "../../services/UserService";
 import * as yup from "yup";
 import {useSelector} from "react-redux";
 import InvitationService from "../../services/InvitationService";
-import ToastService from "../../services/ToastService";
+import ToastService from "../toast/ToastService";
 
 
 const AddParticipantClose = styled.View`

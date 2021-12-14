@@ -24,6 +24,14 @@ const datebookActions = {
         dispatch(datebookActions.getDatebookSuccess(res.data));
       })
   },
+
+  escapeDatebookSuccess: () => ({type: 'ESCAPE_DATEBOOK_SUCCESS'}),
+  escapeDatebook: (datebook) => async (dispatch) => {
+    return DatebookService.escape(datebook)
+      .then(() => {
+        dispatch(datebookActions.escapeDatebookSuccess());
+      })
+  },
 }
 
 export default datebookActions;

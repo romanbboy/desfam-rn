@@ -11,7 +11,7 @@ import {validateAddNewDatebook} from "../../utils/validate";
 import actions from "../../store/actions";
 import {useDispatch} from "react-redux";
 import styled from "styled-components/native/dist/styled-components.native.esm";
-import ToastService from "../../services/ToastService";
+import ToastService from "../toast/ToastService";
 
 
 export const AddNewDatebookClose = styled.View`

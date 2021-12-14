@@ -5,7 +5,7 @@ import {MyText} from "../typography";
 import {Button, Spinner} from "@ui-kitten/components";
 import {useDispatch} from "react-redux";
 import actions from "../../store/actions";
-import ToastService from "../../services/ToastService";
+import ToastService from "../toast/ToastService";
 
 const InvitationWrap = styled.View`
   padding: 14px 20px;
