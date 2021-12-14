@@ -11,23 +11,32 @@ import {AddNewDatebook} from "../../components/add-new-datebook";
 import {ScrollView, View} from "react-native";
 import actions from "../../store/actions";
 import ListDatebooks from "../../components/list-datebooks";
+import Invitation from "../../components/invitation";
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.currentUser);
   const datebooks = useSelector(state => state.main.datebookList);
+  const invitations = useSelector(state => state.main.invitations);
 
   const [showAddNewDatebook, setShowAddNewDatebook] = useState(false);
 
   useEffect(() => {
-    if (currentUser) dispatch(actions.getAllDatebooks())
+    if (currentUser) {
+      dispatch(actions.getAllDatebooks());
+      dispatch(actions.getAllInvitations());
+    }
   }, [currentUser]);
 
   return (
     <ScrollView>
       <Wrapper>
         {currentUser && <>
+          {!!invitations.length && <Styled.MainInvitations>
+            {invitations.map(invitation => <Invitation key={invitation.id} invitation={invitation} />)}
+          </Styled.MainInvitations>}
+
           {!showAddNewDatebook && <Styled.MainActions>
             <Styled.MainAction>
               <MyText style={{fontFamily: 'open-semibold', marginRight: 8, lineHeight: 0}}>Добавить новый задачник</MyText>

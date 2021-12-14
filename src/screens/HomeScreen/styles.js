@@ -11,3 +11,7 @@ export const MainAction = styled.View`
   align-items: center;
   flex-direction: row;
 `
+
+export const MainInvitations = styled.View`
+  margin: 14px 0;
+`

@@ -4,7 +4,7 @@ import {THEME} from "../../styles";
 
 export const MyText = styled.Text`
   font-size: 14px;
-  font-family: open-regular;
+  font-family: open-regular !important;
   color: ${THEME.TEXT_COLOR}
 `;
 
