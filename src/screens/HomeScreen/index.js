@@ -8,7 +8,7 @@ import {Icon} from "@ui-kitten/components";
 import {THEME} from "../../styles";
 import {MyButtonTiny} from "../../components/elements";
 import {AddNewDatebook} from "../../components/add-new-datebook";
-import {ScrollView, View} from "react-native";
+import {RefreshControl, ScrollView, View} from "react-native";
 import actions from "../../store/actions";
 import ListDatebooks from "../../components/list-datebooks";
 import Invitation from "../../components/invitation";
@@ -21,16 +21,31 @@ const HomeScreen = ({navigation}) => {
   const invitations = useSelector(state => state.main.invitations);
 
   const [showAddNewDatebook, setShowAddNewDatebook] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+
+  const fetchData = async () => {
+    await Promise.all([
+      dispatch(actions.getAllDatebooks()),
+      dispatch(actions.getAllInvitations())
+    ])
+  }
 
   useEffect(() => {
     if (currentUser) {
-      dispatch(actions.getAllDatebooks());
-      dispatch(actions.getAllInvitations());
+      (async () => await fetchData())()
     }
   }, [currentUser]);
 
+
+  const onRefreshPage = async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  }
+
   return (
-    <ScrollView>
+    <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefreshPage} />}>
       <Wrapper>
         {currentUser && <>
           {!!invitations.length && <Styled.MainInvitations>
