@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
 import Wrapper from "../../components/wrapper";
 import {H2Text} from "../../components/typography";
@@ -15,9 +16,12 @@ const DatebookScreen = ({route, navigation}) => {
   const currentUser = useSelector(state => state.auth.currentUser);
   const datebook = useSelector(state => state.datebook.info);
 
-  useEffect(() => {
-    dispatch(actions.getDatebook(idDatebook))
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(actions.getDatebook(idDatebook));
+      return () => dispatch({type: 'EXIT_DATEBOOK'})
+    }, [])
+  );
 
   return (
     <ScrollView>

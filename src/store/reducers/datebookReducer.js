@@ -13,6 +13,8 @@ export const datebookReducer = (state = defaultState, action) => {
         info: payload
       }
 
+    case 'EXIT_DATEBOOK': return defaultState
+
     default:
       return state
   }

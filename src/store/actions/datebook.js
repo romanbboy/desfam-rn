@@ -25,11 +25,11 @@ const datebookActions = {
       })
   },
 
-  escapeDatebookSuccess: () => ({type: 'ESCAPE_DATEBOOK_SUCCESS'}),
+  escapeDatebookSuccess: payload => ({type: 'ESCAPE_DATEBOOK_SUCCESS', payload}),
   escapeDatebook: (datebook) => async (dispatch) => {
     return DatebookService.escape(datebook)
       .then(() => {
-        dispatch(datebookActions.escapeDatebookSuccess());
+        dispatch(datebookActions.escapeDatebookSuccess({datebook}));
       })
   },
 }
