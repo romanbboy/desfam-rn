@@ -13,4 +13,7 @@ export default {
   async escape(datebook){
     return await api().get(`datebooks/${datebook.id}/escape`);
   },
+  async deleteParticipant({datebook, participant}){
+    return await api().delete(`datebooks/${datebook.id}/delete/participant/${participant.id}`);
+  }
 }

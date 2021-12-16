@@ -10,6 +10,7 @@ import {useDispatch} from "react-redux";
 import actions from "../../store/actions";
 import ToastService from "../toast/ToastService";
 import {useNavigation} from "@react-navigation/native";
+import RemoveParticipant from "../remove-participant";
 
 const DatebookSettings = ({currentUser, datebook}) => {
   const dispatch = useDispatch();
@@ -84,6 +85,8 @@ const DatebookSettings = ({currentUser, datebook}) => {
         {/*Добавление нового участника*/}
         {settingsTarget === 'addParticipant' && <AddParticipant onClose={allClose} />}
 
+        {/*Удаление участников*/}
+        {settingsTarget === 'removeParticipant' && <RemoveParticipant onClose={allClose} />}
 
       </>}
     </Styled.DatebookSettingsWrap>

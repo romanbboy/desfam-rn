@@ -15,6 +15,15 @@ export const datebookReducer = (state = defaultState, action) => {
 
     case 'EXIT_DATEBOOK': return defaultState
 
+    case 'DELETE_PARTICIPANT_SUCCESS':
+      return {
+        ...state,
+        info: {
+          ...state.info,
+          participants: state.info.participants.filter(el => el.id !== payload.participant.id)
+        }
+      }
+
     default:
       return state
   }

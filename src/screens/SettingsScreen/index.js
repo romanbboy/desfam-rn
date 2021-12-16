@@ -3,6 +3,7 @@ import {Image, Platform, View} from "react-native";
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from "react-redux";
 import * as ImagePicker from 'expo-image-picker';
+import getAvatar from '../../utils/getAvatar'
 
 import Wrapper from "../../components/wrapper";
 import Container from "../../components/container";
@@ -87,16 +88,6 @@ const SettingsScreen = ({navigation}) => {
     }
   };
 
-  const getSettingsAvatar = () => {
-    if (tempAvatar) return {uri: tempAvatar};
-
-    if (currentUser?.avatar) {
-      let prefix = process.env.NODE_ENV === 'development' ? 'http://10.0.0.135' : '';
-      return {uri: `${prefix}${currentUser.avatar}`};
-    }
-    return require('../../../assets/img/avatar-plug.jpg')
-  };
-
   return (
     <Wrapper>
       <Container>
@@ -132,7 +123,7 @@ const SettingsScreen = ({navigation}) => {
             <FormLabel>Аватар</FormLabel>
             <FlexBlock alignItems="center">
               <View style={{marginRight: 20}}>
-                <Picshow source={getSettingsAvatar()} />
+                <Picshow source={tempAvatar ? {uri: tempAvatar} : getAvatar(currentUser)} />
               </View>
               <MyButton onPress={pickImage} >Новый аватар</MyButton>
             </FlexBlock>

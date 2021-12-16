@@ -32,6 +32,14 @@ const datebookActions = {
         dispatch(datebookActions.escapeDatebookSuccess({datebook}));
       })
   },
+
+  deleteParticipantSuccess: payload => ({type: 'DELETE_PARTICIPANT_SUCCESS', payload}),
+  deleteParticipant: ({datebook, participant}) => async (dispatch) => {
+    return DatebookService.deleteParticipant({datebook, participant})
+      .then(() => {
+        dispatch(datebookActions.deleteParticipantSuccess({participant}));
+      })
+  },
 }
 
 export default datebookActions;
