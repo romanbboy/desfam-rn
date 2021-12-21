@@ -1,7 +1,8 @@
 import {GET_DATEBOOK_SUCCESS} from "../constants";
 
 const defaultState = {
-  info: null
+  info: null,
+  issues: []
 }
 
 export const datebookReducer = (state = defaultState, action) => {
@@ -23,6 +24,9 @@ export const datebookReducer = (state = defaultState, action) => {
           participants: state.info.participants.filter(el => el.id !== payload.participant.id)
         }
       }
+
+    case 'ADD_ISSUE_SUCCESS':
+      return {...state, issues: [...state.issues, payload.issue]}
 
     default:
       return state

@@ -9,6 +9,10 @@ import {ApplicationProvider, IconRegistry, Layout, Text} from '@ui-kitten/compon
 import {EvaIconsPack} from "@ui-kitten/eva-icons";
 import MyToast from "./src/components/toast";
 import {StatusBar} from "react-native";
+import moment from "moment";
+import 'moment/min/locales';
+
+moment.locale('ru');
 
 const App = () => {
   const [isReady, setIsReady] = useState(false)

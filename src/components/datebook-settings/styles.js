@@ -7,7 +7,7 @@ export const DatebookSettingsWrap = styled.View`
 export const DatebookSettingsActions = styled.View`
   flex-direction: row;
   justify-content: flex-end;
-  padding: 10px;
+  padding: 10px 10px 20px;
 `;
 
 export const DatebookSettingsAction = styled.View`
