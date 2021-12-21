@@ -1,4 +1,5 @@
 import DatebookService from "../../services/DatebookService";
+import IssueService from "../../services/IssueService";
 
 const datebookActions = {
   addDatebookSuccess: (payload) => ({type: 'ADD_DATEBOOK_SUCCESS', payload}),
@@ -38,6 +39,14 @@ const datebookActions = {
     return DatebookService.deleteParticipant({datebook, participant})
       .then(() => {
         dispatch(datebookActions.deleteParticipantSuccess({participant}));
+      })
+  },
+
+  getDatebookIssuesSuccess: payload => ({type: 'GET_DATEBOOK_ISSUES_SUCCESS', payload}),
+  getDatebookIssues: (data) => async (dispatch) => {
+    return IssueService.get(data)
+      .then(res => {
+        dispatch(datebookActions.getDatebookIssuesSuccess({issues: res.data}));
       })
   },
 }

@@ -2,7 +2,7 @@ import {GET_DATEBOOK_SUCCESS} from "../constants";
 
 const defaultState = {
   info: null,
-  issues: []
+  issues: null
 }
 
 export const datebookReducer = (state = defaultState, action) => {
@@ -27,6 +27,9 @@ export const datebookReducer = (state = defaultState, action) => {
 
     case 'ADD_ISSUE_SUCCESS':
       return {...state, issues: [...state.issues, payload.issue]}
+
+    case 'GET_DATEBOOK_ISSUES_SUCCESS':
+      return {...state, issues: payload.issues}
 
     default:
       return state

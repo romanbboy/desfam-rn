@@ -2,15 +2,15 @@ import React, {useState} from 'react'
 import {Dimensions, Image, Pressable, View} from "react-native";
 import {Avatar, Modal} from "@ui-kitten/components";
 
-const Picshow = (props) => {
+const Picshow = ({source, styles, avatarStyles}) => {
   const [modal, setModal] = useState(false);
 
   const dimensions = Dimensions.get('window');
 
   return (
-    <View>
+    <View style={styles}>
       <Pressable onPress={() => setModal(true)}>
-        <Avatar size='giant' {...props}  />
+        <Avatar size='giant' source={source} style={avatarStyles} />
       </Pressable>
 
       <Modal
@@ -18,7 +18,7 @@ const Picshow = (props) => {
         backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.9)'}}
         style={{width: '100%'}}
         onBackdropPress={() => setModal(false)}>
-          <Image source={props.source} style={{ width: dimensions.width, height: dimensions.height / 2}}/>
+          <Image source={source} style={{ width: dimensions.width, height: dimensions.height / 2}}/>
       </Modal>
     </View>
   )
