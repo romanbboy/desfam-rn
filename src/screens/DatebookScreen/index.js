@@ -58,6 +58,7 @@ const DatebookScreen = ({route, navigation}) => {
   const onSetDate = date => {
     setShowIssueCreator(moment(date).isSameOrAfter(moment(), 'day'));
     setDate(date);
+    dispatch(actions.getDatebookIssues({idDatebook, date: date}));
   }
 
   return (

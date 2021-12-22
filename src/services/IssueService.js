@@ -6,5 +6,11 @@ export default {
   },
   async get(data){
     return await api().post(`/issues/get`, data);
+  },
+  async status(issue){
+    return await api().put(`/issues/${issue.id}/status`, null);
+  },
+  async delete(issue){
+    return await api().delete(`/issues/${issue.id}`);
   }
 }
