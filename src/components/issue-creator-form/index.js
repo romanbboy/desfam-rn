@@ -63,7 +63,7 @@ const IssueCreatorForm = ({date, datebook}) => {
   });
 
   useEffect(() => {
-    setDateForm(date);
+    setDateForm(date.isSameOrAfter(moment(), 'day') ? date : moment());
     setTargetDayDatebook(date);
   }, [date]);
 

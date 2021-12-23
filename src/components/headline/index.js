@@ -5,6 +5,8 @@ import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter'
 import {MyText} from "../typography";
 import {LinearGradient} from "expo-linear-gradient";
 import Calendar from "../calendar";
+import {Button, Icon} from "@ui-kitten/components";
+import {THEME} from "../../styles";
 
 const HeadlineWrap = styled.View`
   margin: 20px 0;
@@ -22,10 +24,11 @@ const HeadlineDay = styled.View`
 `;
 
 const HeadlineFullDate = styled.View`
-  
+  flex-direction: row;
+  align-items: center;
 `;
 
-const Headline = ({date, setDate}) => {
+const Headline = ({date, setDate, issueCreator}) => {
 
   return (
     <HeadlineWrap>
@@ -34,6 +37,12 @@ const Headline = ({date, setDate}) => {
           <MyText style={{fontSize: 18, fontFamily: 'open-light'}}>{capitalizeFirstLetter(date.format('dddd'))}</MyText>
         </HeadlineDay>
         <HeadlineFullDate>
+          <Button appearance='ghost'
+                  size='tiny'
+                  style={{marginRight: 10}}
+                  onPress={() => issueCreator.setShowIssueCreator(!issueCreator.showIssueCreator)}
+                  accessoryLeft={() => <Icon name='edit-2-outline' fill={issueCreator.showIssueCreator ? THEME.BLUE_COLOR : "rgb(130, 142, 165)"} style={{width: 23, height: 23}} />} />
+
           <Calendar date={date} setDate={setDate} placement='top start' />
         </HeadlineFullDate>
       </HeadlineDate>

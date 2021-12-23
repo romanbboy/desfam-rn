@@ -30,7 +30,7 @@ const DatebookScreen = ({route, navigation}) => {
   const issues = useSelector(state => state.datebook.issues);
 
   const [date, setDate] = useState(moment());
-  const [showIssueCreator, setShowIssueCreator] = useState(true);
+  const [showIssueCreator, setShowIssueCreator] = useState(false);
   const [usersIssues, setUsersIssues] = useState(null);
 
   useFocusEffect(
@@ -57,7 +57,6 @@ const DatebookScreen = ({route, navigation}) => {
 
   const onSetDate = date => {
     setUsersIssues(null);
-    setShowIssueCreator(moment(date).isSameOrAfter(moment(), 'day'));
     setDate(date);
     dispatch(actions.getDatebookIssues({idDatebook, date: date}));
   }
@@ -71,7 +70,7 @@ const DatebookScreen = ({route, navigation}) => {
 
           {/*Основной контент*/}
           <H2Text type="h1">Задачник "{datebook.title}"</H2Text>
-          <Headline date={date} setDate={onSetDate} />
+          <Headline date={date} setDate={onSetDate} issueCreator={{showIssueCreator, setShowIssueCreator}} />
 
           {showIssueCreator && <IssueCreatorForm date={date} datebook={datebook} />}
 
