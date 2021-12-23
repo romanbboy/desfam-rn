@@ -14,6 +14,7 @@ import IssueCreatorForm from "../../components/issue-creator-form";
 import {FlexBlock} from "../../components/flex-block";
 import {Icon} from "@ui-kitten/components";
 import Notepad from "../../components/notepad";
+import {SkeletonNotepad} from "../../components/skeleton";
 
 const NotepadList = styled.View`
   margin-top: 15px;
@@ -41,7 +42,6 @@ const DatebookScreen = ({route, navigation}) => {
   );
 
   useEffect(() => {
-    setUsersIssues(null);
     if (issues) {
       const issuesMap = issues.reduce((res, item) => {
         if (!res[item.target.id]) res[item.target.id] = {user: item.target, issues: []};
@@ -56,6 +56,7 @@ const DatebookScreen = ({route, navigation}) => {
   }, [issues])
 
   const onSetDate = date => {
+    setUsersIssues(null);
     setShowIssueCreator(moment(date).isSameOrAfter(moment(), 'day'));
     setDate(date);
     dispatch(actions.getDatebookIssues({idDatebook, date: date}));
@@ -75,6 +76,11 @@ const DatebookScreen = ({route, navigation}) => {
           {showIssueCreator && <IssueCreatorForm date={date} datebook={datebook} />}
 
           {/*Задачники*/}
+          {!usersIssues && <>
+            <SkeletonNotepad />
+            <SkeletonNotepad />
+          </>}
+
           {usersIssues && <>
             {!!usersIssues.length && <>
               {usersIssues.map(el => <Notepad key={el.user.id} user={el.user} issues={el.issues} />)}

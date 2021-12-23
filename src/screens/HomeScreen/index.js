@@ -12,6 +12,7 @@ import {RefreshControl, ScrollView, View} from "react-native";
 import actions from "../../store/actions";
 import ListDatebooks from "../../components/list-datebooks";
 import Invitation from "../../components/invitation";
+import {SkeletonList, SkeletonNotepad} from "../../components/skeleton";
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -63,12 +64,14 @@ const HomeScreen = ({navigation}) => {
 
           {showAddNewDatebook && <AddNewDatebook onClose={() => setShowAddNewDatebook(false)} />}
 
-          <View>
+          {/*Список задачников*/}
+          {!datebooks && <SkeletonList />}
+          {datebooks && <View>
             {!!datebooks.length && <ListDatebooks datebooks={datebooks} user={currentUser} />}
             {!datebooks.length && <Container>
               <MyText style={{textAlign: 'center'}}>Тут появится список ваших задачников</MyText>
             </Container>}
-          </View>
+          </View>}
         </>}
 
         {!currentUser && <Container>

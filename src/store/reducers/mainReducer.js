@@ -1,7 +1,7 @@
 import {ADD_DATEBOOK_SUCCESS, GET_ALL_DATEBOOKS_SUCCESS} from "../constants";
 
 const defaultState = {
-  datebookList: [],
+  datebookList: null,
   invitations: []
 }
 
