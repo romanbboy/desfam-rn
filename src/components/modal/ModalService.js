@@ -18,7 +18,3 @@ export default {
   }
 }
 
-// 61a62147fc2a5834508737d7
-
-// Kolya 6128f2423dd5552cfc925f55
-

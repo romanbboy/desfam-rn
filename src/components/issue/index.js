@@ -8,7 +8,7 @@ import ModalService from "../modal/ModalService";
 import actions from "../../store/actions";
 import ToastService from "../toast/ToastService";
 
-const IssueWrap = styled.Pressable`
+const IssueWrap = styled.TouchableOpacity`
   background-color: ${props => props.backGround};
   padding: 3px 10px;
   border-radius: 5px;
@@ -48,6 +48,8 @@ const Issue = ({issue}) => {
 
   return (
     <IssueWrap backGround={issue.status ? '#99e0a9' : '#eef2f8'}
+               activeOpacity={0.7}
+               underlayColor='#A4C936'
                onPress={changeStatus}
                onLongPress={deleteIssue}>
       <MyText style={{fontSize: 13}}>{issue.content}</MyText>

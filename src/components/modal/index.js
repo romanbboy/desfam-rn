@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components/native';
 import {Button, Icon} from "@ui-kitten/components";
 import {MyText} from "../typography";
+import Spinner from "../spinner";
 
 const ModalConfirmWrap = styled.View`
   flex: 1;
@@ -29,6 +30,13 @@ const ModalConfirmOptions = styled.View`
 `;
 
 const ModalConfirm = ({msg, accept, reject}) => {
+  const [loading, setLoading] = useState(false);
+
+  const handlerAccept = async () => {
+    setLoading(true);
+    await accept();
+  }
+
   return (
     <ModalConfirmWrap>
       <ModalConfirmContent>
@@ -45,10 +53,11 @@ const ModalConfirm = ({msg, accept, reject}) => {
             <MyText>Нет</MyText>
           </Button>
 
-          <Button onPress={accept}
+          <Button onPress={handlerAccept}
                   accessoryLeft={() => <Icon name='checkmark-outline' fill='#fff' style={{width: 20, height: 20}} />}
                   size='small' >
-            <MyText>Да</MyText>
+            {!loading && 'Да'}
+            {loading && <Spinner />}
           </Button>
         </ModalConfirmOptions>
       </ModalConfirmContent>
