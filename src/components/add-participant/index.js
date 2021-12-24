@@ -15,6 +15,7 @@ import * as yup from "yup";
 import {useSelector} from "react-redux";
 import InvitationService from "../../services/InvitationService";
 import ToastService from "../toast/ToastService";
+import {sendPushNotification} from "../../utils/notifications";
 
 
 const AddParticipantClose = styled.View`
@@ -38,7 +39,17 @@ const AddParticipant = ({onClose}) => {
       await InvitationService.add(invite)
         .then(res => {
           formikAddParticipant.resetForm();
-          ToastService.show(res.data)
+          ToastService.show(res.data);
+
+          // todo push
+          /*if (settingsAddParticipant.user.expoToken) {
+            sendPushNotification({
+              to: settingsAddParticipant.user.expoToken,
+              sound: 'default',
+              title: 'Приглашение в задачник',
+              body: `Тебя пригласили в задачник "${datebook.title}"`
+            });
+          }*/
           return {};
         })
         .catch(e => ToastService.show(e.response.data, 'error'))

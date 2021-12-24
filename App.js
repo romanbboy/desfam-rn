@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import AppLoading from 'expo-app-loading';
 import {bootstrap} from './src/bootstrap'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 import {store} from './src/store'
 import AppNavigation from './src/navigation/AppNavigation'
 import * as eva from '@eva-design/eva';
-import {ApplicationProvider, IconRegistry, Layout, Text} from '@ui-kitten/components';
+import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import {EvaIconsPack} from "@ui-kitten/eva-icons";
 import MyToast from "./src/components/toast";
 import {StatusBar} from "react-native";

@@ -15,6 +15,8 @@ import {THEME} from "../../styles";
 import Calendar from "../calendar";
 import {useDispatch, useSelector} from "react-redux";
 import ToastService from "../toast/ToastService";
+import {Platform} from "react-native";
+import {sendPushNotification} from "../../utils/notifications";
 
 const IssueCreatorFormExecutor = styled.View`
   margin-top: 10px;
@@ -56,6 +58,16 @@ const IssueCreatorForm = ({date, datebook}) => {
 
           matchDate && dispatch(actions.addIssueSuccess({issue}));
           formik.resetForm();
+
+          // todo push
+          /*if (Platform.OS !== 'web' && issue.target.expoToken) {
+            sendPushNotification({
+              to: issue.target.expoToken,
+              sound: 'default',
+              title: 'Новая задача!',
+              body: `${issue.creator.username} назначил на тебя задачу`
+            });
+          }*/
         })
         .catch(e => ToastService.show(e.response.data, 'error'))
         .finally(() => setIsSubmitting(false))

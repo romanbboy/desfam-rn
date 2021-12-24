@@ -12,4 +12,7 @@ export default {
   async findOne(field, val){
     return await api().post('/users/findOne', {field, val});
   },
+  async setExpoToken(expoToken){
+    return await api().put('/users/expoToken', {expoToken});
+  },
 }

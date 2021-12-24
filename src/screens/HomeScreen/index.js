@@ -12,7 +12,7 @@ import {RefreshControl, ScrollView, View} from "react-native";
 import actions from "../../store/actions";
 import ListDatebooks from "../../components/list-datebooks";
 import Invitation from "../../components/invitation";
-import {SkeletonList, SkeletonNotepad} from "../../components/skeleton";
+import {SkeletonList} from "../../components/skeleton";
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();

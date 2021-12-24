@@ -23,6 +23,14 @@ const userActions = {
     await asyncStorage.removeItem('accessToken');
     dispatch(userActions.logoutSuccess());
   },
+
+  setExpoTokenSuccess: () => ({type: 'SET_EXPO_TOKEN_SUCCESS'}),
+  setExpoToken: expoToken => async (dispatch) => {
+    return UserService.setExpoToken(expoToken)
+      .then(() => {
+        dispatch(userActions.setExpoTokenSuccess())
+      })
+  },
 };
 
 export default userActions;
