@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import styled from 'styled-components/native'
 import moment from "moment";
 import Container from "../container";
@@ -15,8 +15,9 @@ import {THEME} from "../../styles";
 import Calendar from "../calendar";
 import {useDispatch, useSelector} from "react-redux";
 import ToastService from "../toast/ToastService";
-import {Platform} from "react-native";
+import {Platform, View} from "react-native";
 import {sendPushNotification} from "../../utils/notifications";
+import {Animated} from "react-native";
 
 const IssueCreatorFormExecutor = styled.View`
   margin-top: 10px;
@@ -79,44 +80,55 @@ const IssueCreatorForm = ({date, datebook}) => {
     setTargetDayDatebook(date);
   }, [date]);
 
+  const slidingDown = new Animated.Value(0);
+  useEffect(() => {
+    Animated.timing(slidingDown, {
+      toValue: 247,
+      duration: 200,
+      useNativeDriver: false
+    }).start();
+  }, [])
+
   return (
-    <Container>
-      <FormLabel style={{fontFamily: 'open-semibold', lineHeight: 35}}>Добавить новый задачу</FormLabel>
-      <FlexBlock alignItems='center'>
-        <FlexBlock flex='1' styles={{marginRight: 5}}>
-          <Input value={formik.values.description}
-                 onChangeText={formik.handleChange('description')}
-                 onBlur={formik.handleBlur('description')}
-                 status={(formik.errors.description && formik.touched.description) ? 'error' : 'success'}
-                 maxLength={200}
-                 placeholder="Опиши задачу"
-                 placeholderTextColor="#ced1db" />
+    <Animated.View style={[{overflow: 'hidden'},{height: slidingDown}]}>
+      <Container>
+        <FormLabel style={{fontFamily: 'open-semibold', lineHeight: 35}}>Добавить новый задачу</FormLabel>
+        <FlexBlock alignItems='center'>
+          <FlexBlock flex='1' styles={{marginRight: 5}}>
+            <Input value={formik.values.description}
+                   onChangeText={formik.handleChange('description')}
+                   onBlur={formik.handleBlur('description')}
+                   status={(formik.errors.description && formik.touched.description) ? 'error' : 'success'}
+                   maxLength={200}
+                   placeholder="Опиши задачу"
+                   placeholderTextColor="#ced1db" />
+          </FlexBlock>
+
+          <MyButtonTiny onPress={formik.handleSubmit}
+                        isSubmitting={isSubmitting}
+                        disabled={!(formik.isValid && formik.dirty && !isSubmitting)}>
+            <Icon name='plus'
+                  fill={!(formik.isValid && formik.dirty && !isSubmitting) ? THEME.GRAY_COLOR : THEME.GREEN_COLOR_DARK}
+                  style={{width: 27, height: 27}} />
+          </MyButtonTiny>
         </FlexBlock>
+        {formik.errors.description && formik.touched.description && <FieldNotice>{formik.errors.description}</FieldNotice>}
 
-        <MyButtonTiny onPress={formik.handleSubmit}
-                      isSubmitting={isSubmitting}
-                      disabled={!(formik.isValid && formik.dirty && !isSubmitting)}>
-          <Icon name='plus'
-                fill={!(formik.isValid && formik.dirty && !isSubmitting) ? THEME.GRAY_COLOR : THEME.GREEN_COLOR_DARK}
-                style={{width: 27, height: 27}} />
-        </MyButtonTiny>
-      </FlexBlock>
-      {formik.errors.description && formik.touched.description && <FieldNotice>{formik.errors.description}</FieldNotice>}
+        <IssueCreatorFormExecutor>
+          <MyText style={{marginBottom: 5}}>Назначить на участника:</MyText>
+          <Select selectedIndex={selectedIndex}
+                  size='small'
+                  value={() => <MyText>{datebook.participants[selectedIndex.row].username}</MyText>}
+                  style={{marginBottom: 10}}
+                  onSelect={index => setSelectedIndex(index)}>
+            {datebook.participants.map(el => <SelectItem style={{paddingVertical: 5}} key={el.id} title={() => <MyText>{el.username}</MyText>}/>)}
+          </Select>
 
-      <IssueCreatorFormExecutor>
-        <MyText style={{marginBottom: 5}}>Назначить на участника:</MyText>
-        <Select selectedIndex={selectedIndex}
-                size='small'
-                value={() => <MyText>{datebook.participants[selectedIndex.row].username}</MyText>}
-                style={{marginBottom: 10}}
-                onSelect={index => setSelectedIndex(index)}>
-          {datebook.participants.map(el => <SelectItem style={{paddingVertical: 5}} key={el.id} title={() => <MyText>{el.username}</MyText>}/>)}
-        </Select>
-
-        <MyText style={{marginBottom: 5}}>Назначить на дату:</MyText>
-        <Calendar date={dateForm} setDate={setDateForm} min={moment()} />
-      </IssueCreatorFormExecutor>
-    </Container>
+          <MyText style={{marginBottom: 5}}>Назначить на дату:</MyText>
+          <Calendar date={dateForm} setDate={setDateForm} min={moment()} />
+        </IssueCreatorFormExecutor>
+      </Container>
+    </Animated.View>
   )
 }
 
