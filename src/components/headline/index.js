@@ -7,6 +7,9 @@ import {LinearGradient} from "expo-linear-gradient";
 import Calendar from "../calendar";
 import {Button, Icon} from "@ui-kitten/components";
 import {THEME} from "../../styles";
+import {Platform, View} from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from "moment";
 
 const HeadlineWrap = styled.View`
   margin: 20px 0;
@@ -43,7 +46,13 @@ const Headline = ({date, setDate, issueCreator}) => {
                   onPress={() => issueCreator.setShowIssueCreator(!issueCreator.showIssueCreator)}
                   accessoryLeft={() => <Icon name='edit-2-outline' fill={issueCreator.showIssueCreator ? THEME.BLUE_COLOR : "rgb(130, 142, 165)"} style={{width: 23, height: 23}} />} />
 
-          <Calendar date={date} setDate={setDate} placement='top start' />
+          {Platform.OS === 'web' && <Calendar date={date} setDate={setDate} placement='top start' />}
+          {Platform.OS !== 'web' && (
+            <DateTimePicker value={date.toDate()}
+                            locale='ru'
+                            onChange={(e, date) => setDate(moment(date))}
+                            style={{width: 100}}/>)
+          }
         </HeadlineFullDate>
       </HeadlineDate>
 

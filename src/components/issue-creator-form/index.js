@@ -18,6 +18,7 @@ import ToastService from "../toast/ToastService";
 import {Platform, View} from "react-native";
 import {sendPushNotification} from "../../utils/notifications";
 import {Animated} from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const IssueCreatorFormExecutor = styled.View`
   margin-top: 10px;
@@ -125,7 +126,14 @@ const IssueCreatorForm = ({date, datebook}) => {
           </Select>
 
           <MyText style={{marginBottom: 5}}>Назначить на дату:</MyText>
-          <Calendar date={dateForm} setDate={setDateForm} min={moment()} />
+          {Platform.OS === 'web' && <Calendar date={dateForm} setDate={setDateForm} min={moment()} />}
+          {Platform.OS !== 'web' && (
+            <DateTimePicker value={dateForm.toDate()}
+                            minimumDate={moment().toDate()}
+                            locale='ru'
+                            onChange={(e, date) => setDateForm(moment(date))}
+                            style={{width: 100}}/>)
+          }
         </IssueCreatorFormExecutor>
       </Container>
     </Animated.View>
