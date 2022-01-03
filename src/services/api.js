@@ -2,9 +2,9 @@ import axios from 'axios'
 import asyncStorage from "../utils/asyncStorage";
 
 export default () => {
-  // Перед продом заменить на https:// сервер с ssl сертификатом!
-  // const baseURL = 'http://192.168.0.198/api';
-  const baseURL = 'https://desfam.ru/api';
+  const baseURL = process.env.NODE_ENV === 'development'
+    ? `${process.env.URL_DEVELOPMENT}:80/api`
+    : `${process.env.URL_PRODUCTION}/api`;
 
   const instance = axios.create({baseURL});
 
