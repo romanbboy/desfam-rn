@@ -46,7 +46,7 @@ const DatebookSettings = ({currentUser, datebook}) => {
       {!settingsTarget && <Styled.DatebookSettingsActions>
 
         {!settingsShow && <Styled.DatebookSettingsAction>
-          <MyText style={{fontFamily: 'open-semibold', marginRight: 8, lineHeight: 0}}>Настройки</MyText>
+          <MyText style={{fontFamily: 'open-semibold', marginRight: 8}}>Настройки</MyText>
           <MyButtonTiny onPress={() => setSettingsShow(true)}>
             <Icon name='options-2' fill={THEME.BLUE_COLOR} style={{width: 35, height: 35}} />
           </MyButtonTiny>

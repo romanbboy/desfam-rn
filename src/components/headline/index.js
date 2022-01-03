@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components/native'
 
 import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter'
@@ -32,6 +32,7 @@ const HeadlineFullDate = styled.View`
 `;
 
 const Headline = ({date, setDate, issueCreator}) => {
+  const [showAndroidDatePicker, setShowAndroidDatePicker] = useState(false);
 
   return (
     <HeadlineWrap>
@@ -47,12 +48,31 @@ const Headline = ({date, setDate, issueCreator}) => {
                   accessoryLeft={() => <Icon name='edit-2-outline' fill={issueCreator.showIssueCreator ? THEME.BLUE_COLOR : "rgb(130, 142, 165)"} style={{width: 23, height: 23}} />} />
 
           {Platform.OS === 'web' && <Calendar date={date} setDate={setDate} placement='top start' />}
-          {Platform.OS !== 'web' && (
+
+          {Platform.OS === 'ios' && (
             <DateTimePicker value={date.toDate()}
                             locale='ru'
                             onChange={(e, date) => setDate(moment(date))}
                             style={{width: 100}}/>)
           }
+
+          {Platform.OS === 'android' && <>
+            <Button appearance='outline'
+                    status='basic'
+                    size='tiny'
+                    onPress={() => setShowAndroidDatePicker(true)}
+            >
+              {() => <MyText>{date.format('DD.MM.YYYY')}</MyText>}
+            </Button>
+
+            {showAndroidDatePicker && (
+              <DateTimePicker value={date.toDate()}
+                              onChange={(e, date) => {
+                                setShowAndroidDatePicker(false);
+                                date && setDate(moment(date));
+                              }}/>
+            )}
+          </>}
         </HeadlineFullDate>
       </HeadlineDate>
 

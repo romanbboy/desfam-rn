@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Platform, View} from "react-native";
+import {Image, Platform, ScrollView, View} from "react-native";
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from "react-redux";
 import * as ImagePicker from 'expo-image-picker';
@@ -89,70 +89,72 @@ const SettingsScreen = ({navigation}) => {
   };
 
   return (
-    <Wrapper>
-      <Container>
-        <H1Text type="h1">Настройки</H1Text>
-        <FormWrap>
-          <H2Text>Информация</H2Text>
-          <FormGroup style={{marginTop: 10}}>
-            <FormLabel>Назови себя</FormLabel>
-            <Input value={formik.values.username}
-                   onChangeText={formik.handleChange('username')}
-                   onBlur={formik.handleBlur('username')}
-                   status={(formik.errors.username && formik.touched.username) ? 'error' : 'success'}
-                   maxLength={40}
-                   textContentType="username"
-                   placeholder="Желательно ФИО"
-                   placeholderTextColor="#ced1db" />
-            {formik.errors.username && formik.touched.username && <FieldNotice>{formik.errors.username}</FieldNotice>}
-          </FormGroup>
+    <ScrollView>
+      <Wrapper>
+        <Container>
+          <H1Text type="h1">Настройки</H1Text>
+          <FormWrap>
+            <H2Text>Информация</H2Text>
+            <FormGroup style={{marginTop: 10}}>
+              <FormLabel>Назови себя</FormLabel>
+              <Input value={formik.values.username}
+                     onChangeText={formik.handleChange('username')}
+                     onBlur={formik.handleBlur('username')}
+                     status={(formik.errors.username && formik.touched.username) ? 'error' : 'success'}
+                     maxLength={40}
+                     textContentType="username"
+                     placeholder="Желательно ФИО"
+                     placeholderTextColor="#ced1db" />
+              {formik.errors.username && formik.touched.username && <FieldNotice>{formik.errors.username}</FieldNotice>}
+            </FormGroup>
 
-          <FormGroup>
-            <FormLabel>Кто по жизни?</FormLabel>
-            <Input value={formik.values.position}
-                   onChangeText={formik.handleChange('position')}
-                   onBlur={formik.handleBlur('position')}
-                   status={(formik.errors.position && formik.touched.position) ? 'error' : 'success'}
-                   maxLength={20}
-                   placeholder="Например: Менеджер"
-                   placeholderTextColor="#ced1db" />
-            {formik.errors.position && formik.touched.position && <FieldNotice>{formik.errors.position}</FieldNotice>}
-          </FormGroup>
+            <FormGroup>
+              <FormLabel>Кто по жизни?</FormLabel>
+              <Input value={formik.values.position}
+                     onChangeText={formik.handleChange('position')}
+                     onBlur={formik.handleBlur('position')}
+                     status={(formik.errors.position && formik.touched.position) ? 'error' : 'success'}
+                     maxLength={20}
+                     placeholder="Например: Менеджер"
+                     placeholderTextColor="#ced1db" />
+              {formik.errors.position && formik.touched.position && <FieldNotice>{formik.errors.position}</FieldNotice>}
+            </FormGroup>
 
-          <FormGroup style={{marginBottom: 20}}>
-            <FormLabel>Аватар</FormLabel>
-            <FlexBlock alignItems="center">
-              <View style={{marginRight: 20}}>
-                <Picshow source={tempAvatar ? {uri: tempAvatar} : getAvatar(currentUser)} />
-              </View>
-              <MyButton onPress={pickImage} >Новый аватар</MyButton>
-            </FlexBlock>
-          </FormGroup>
+            <FormGroup style={{marginBottom: 20}}>
+              <FormLabel>Аватар</FormLabel>
+              <FlexBlock alignItems="center">
+                <View style={{marginRight: 20}}>
+                  <Picshow source={tempAvatar ? {uri: tempAvatar} : getAvatar(currentUser)} />
+                </View>
+                <MyButton onPress={pickImage} >Новый аватар</MyButton>
+              </FlexBlock>
+            </FormGroup>
 
-          <H2Text>Сменить пароль</H2Text>
-          <FormGroup style={{marginBottom: 0, marginTop: 10}}>
-            <FormLabel>Новый пароль</FormLabel>
-            <Input value={formik.values.password}
-                   onBlur={formik.handleBlur('password')}
-                   onChangeText={formik.handleChange('password')}
-                   status={(formik.errors.password && formik.touched.password) ? 'error' : 'success'}
-                   textContentType="password"
-                   secureTextEntry={true} />
-            {formik.errors.password && formik.touched.password && <FieldNotice>{formik.errors.password}</FieldNotice>}
-          </FormGroup>
+            <H2Text>Сменить пароль</H2Text>
+            <FormGroup style={{marginBottom: 0, marginTop: 10}}>
+              <FormLabel>Новый пароль</FormLabel>
+              <Input value={formik.values.password}
+                     onBlur={formik.handleBlur('password')}
+                     onChangeText={formik.handleChange('password')}
+                     status={(formik.errors.password && formik.touched.password) ? 'error' : 'success'}
+                     textContentType="password"
+                     secureTextEntry={true} />
+              {formik.errors.password && formik.touched.password && <FieldNotice>{formik.errors.password}</FieldNotice>}
+            </FormGroup>
 
-          {!!notice.msg && <FieldNotice type={notice.type}>{notice.msg}</FieldNotice>}
+            {!!notice.msg && <FieldNotice type={notice.type}>{notice.msg}</FieldNotice>}
 
-          <FormActions>
-            <MyButton onPress={formik.handleSubmit}
-                      isSubmitting={isSubmitting}
-                      disabled={!(formik.isValid && formik.dirty && !isSubmitting)}>
-              Сохранить
-            </MyButton>
-          </FormActions>
-        </FormWrap>
-      </Container>
-    </Wrapper>
+            <FormActions>
+              <MyButton onPress={formik.handleSubmit}
+                        isSubmitting={isSubmitting}
+                        disabled={!(formik.isValid && formik.dirty && !isSubmitting)}>
+                Сохранить
+              </MyButton>
+            </FormActions>
+          </FormWrap>
+        </Container>
+      </Wrapper>
+    </ScrollView>
   );
 }
 

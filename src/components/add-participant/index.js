@@ -100,7 +100,7 @@ const AddParticipant = ({onClose}) => {
         <FormGroup>
           <FormLabel weight='bold'>Добавить нового участника</FormLabel>
           <FlexBlock alignItems='center'>
-            <FlexBlock flex='1' styles={{marginRight: 10}}>
+            <FlexBlock styles={{marginRight: 10}}>
               <Input value={formikAddParticipant.values.participant}
                      onBlur={formikAddParticipant.handleBlur('participant')}
                      status={(formikAddParticipant.errors.participant && formikAddParticipant.touched.participant) ? 'error' : 'success'}

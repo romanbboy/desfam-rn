@@ -55,7 +55,7 @@ const HomeScreen = ({navigation}) => {
 
           {!showAddNewDatebook && <Styled.MainActions>
             <Styled.MainAction>
-              <MyText style={{fontFamily: 'open-semibold', marginRight: 8, lineHeight: 0}}>Добавить новый задачник</MyText>
+              <MyText style={{fontFamily: 'open-semibold', marginRight: 8}}>Добавить новый задачник</MyText>
               <MyButtonTiny onPress={() => setShowAddNewDatebook(true)}>
                 <Icon name='plus-square' fill={THEME.BLUE_COLOR} style={{width: 35, height: 35}} />
               </MyButtonTiny>

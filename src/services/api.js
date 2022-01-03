@@ -3,7 +3,8 @@ import asyncStorage from "../utils/asyncStorage";
 
 export default () => {
   // Перед продом заменить на https:// сервер с ssl сертификатом!
-  const baseURL = 'http://10.0.0.135/api';
+  // const baseURL = 'http://192.168.0.198/api';
+  const baseURL = 'https://desfam.ru/api';
 
   const instance = axios.create({baseURL});
 

@@ -58,7 +58,7 @@ export const AddNewDatebook = ({onClose}) => {
         <FormGroup>
           <FormLabel weight='bold'>Добавить новый задачник</FormLabel>
           <FlexBlock alignItems='center'>
-            <FlexBlock flex='1' styles={{marginRight: 10}}>
+            <FlexBlock styles={{marginRight: 10}}>
               <Input value={formikAddNewDatebook.values.datebook}
                      onBlur={formikAddNewDatebook.handleBlur('datebook')}
                      status={(formikAddNewDatebook.errors.datebook && formikAddNewDatebook.touched.datebook) ? 'error' : 'success'}

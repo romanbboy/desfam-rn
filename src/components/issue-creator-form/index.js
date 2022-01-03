@@ -10,7 +10,7 @@ import {useFormik} from "formik";
 import {validateAddIssue} from "../../utils/validate";
 import actions from "../../store/actions";
 import {FlexBlock} from "../flex-block";
-import {Icon, IndexPath, Select, SelectItem} from "@ui-kitten/components";
+import {Button, Icon, IndexPath, Select, SelectItem} from "@ui-kitten/components";
 import {THEME} from "../../styles";
 import Calendar from "../calendar";
 import {useDispatch, useSelector} from "react-redux";
@@ -36,6 +36,8 @@ const IssueCreatorForm = ({date, datebook}) => {
 
   const [dateForm, setDateForm] = useState(date);
   const [targetDayDatebook, setTargetDayDatebook] = useState(date);
+
+  const [showAndroidDatePicker, setShowAndroidDatePicker] = useState(false);
 
   const formik = useFormik({
     initialValues: {description: ''},
@@ -95,7 +97,7 @@ const IssueCreatorForm = ({date, datebook}) => {
       <Container>
         <FormLabel style={{fontFamily: 'open-semibold', lineHeight: 35}}>Добавить новый задачу</FormLabel>
         <FlexBlock alignItems='center'>
-          <FlexBlock flex='1' styles={{marginRight: 5}}>
+          <FlexBlock styles={{marginRight: 5}}>
             <Input value={formik.values.description}
                    onChangeText={formik.handleChange('description')}
                    onBlur={formik.handleBlur('description')}
@@ -127,13 +129,31 @@ const IssueCreatorForm = ({date, datebook}) => {
 
           <MyText style={{marginBottom: 5}}>Назначить на дату:</MyText>
           {Platform.OS === 'web' && <Calendar date={dateForm} setDate={setDateForm} min={moment()} />}
-          {Platform.OS !== 'web' && (
+          {Platform.OS === 'ios' && (
             <DateTimePicker value={dateForm.toDate()}
                             minimumDate={moment().toDate()}
                             locale='ru'
                             onChange={(e, date) => setDateForm(moment(date))}
                             style={{width: 100}}/>)
           }
+          {Platform.OS === 'android' && <>
+            <Button appearance='outline'
+                    status='basic'
+                    size='tiny'
+                    onPress={() => setShowAndroidDatePicker(true)}
+            >
+              {() => <MyText>{dateForm.format('DD.MM.YYYY')}</MyText>}
+            </Button>
+
+            {showAndroidDatePicker && (
+              <DateTimePicker value={dateForm.toDate()}
+                              minimumDate={moment().toDate()}
+                              onChange={(e, date) => {
+                                setShowAndroidDatePicker(false);
+                                date && setDateForm(moment(date));
+                              }}/>
+            )}
+          </>}
         </IssueCreatorFormExecutor>
       </Container>
     </Animated.View>
