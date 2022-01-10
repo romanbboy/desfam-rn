@@ -17,6 +17,7 @@
     "@react-native-community/datetimepicker": "^5.1.0",
     "@react-navigation/native": "6.0.2",
     "@react-navigation/stack": "*",
+    "@react-spring/native": "^9.4.1",
     "@ui-kitten/components": "^5.1.1",
     "@ui-kitten/eva-icons": "^5.1.1",
     "@ui-kitten/moment": "^5.1.1",

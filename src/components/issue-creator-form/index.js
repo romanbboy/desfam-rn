@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components/native'
 import moment from "moment";
 import Container from "../container";
@@ -17,8 +17,8 @@ import {useDispatch, useSelector} from "react-redux";
 import ToastService from "../toast/ToastService";
 import {Platform, View} from "react-native";
 import {sendPushNotification} from "../../utils/notifications";
-import {Animated} from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import {animated, useSpring} from "@react-spring/native";
 
 const IssueCreatorFormExecutor = styled.View`
   margin-top: 10px;
@@ -83,17 +83,15 @@ const IssueCreatorForm = ({date, datebook}) => {
     setTargetDayDatebook(date);
   }, [date]);
 
-  const slidingDown = new Animated.Value(0);
-  useEffect(() => {
-    Animated.timing(slidingDown, {
-      toValue: 247,
-      duration: 200,
-      useNativeDriver: false
-    }).start();
-  }, [])
+
+  const AnimatedView = animated(View);
+  const propsUI = useSpring({
+    from: {opacity: 0},
+    to: {opacity: 1}
+  })
 
   return (
-    <Animated.View style={[{overflow: 'hidden'},{height: slidingDown}]}>
+    <AnimatedView style={{overflow: 'hidden', ...propsUI}}>
       <Container>
         <FormLabel style={{fontFamily: 'open-semibold', lineHeight: 35}}>Добавить новый задачу</FormLabel>
         <FlexBlock alignItems='center'>
@@ -156,7 +154,7 @@ const IssueCreatorForm = ({date, datebook}) => {
           </>}
         </IssueCreatorFormExecutor>
       </Container>
-    </Animated.View>
+    </AnimatedView>
   )
 }
 
