@@ -22,7 +22,6 @@ const HeaderPanel = styled.View`
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  width: 150px;
 `
 
 const Header = ({navigation, route}) => {
@@ -45,7 +44,7 @@ const Header = ({navigation, route}) => {
         {!currentUser && <Fragment>
           <Link onPress={() => navigation.navigate('Registration')}
                 active={route.name === 'Registration'}
-                styles={{fontFamily: 'open-light', fontSize: '16px'}}>
+                styles={{fontFamily: 'open-light', fontSize: '16px', marginRight: 20}}>
             Регистрация
           </Link>
 
@@ -60,7 +59,7 @@ const Header = ({navigation, route}) => {
           <Link onPress={() => navigation.navigate('Settings')}>
             <Icon name='settings' fill={route.name === 'Settings' ? '#5b687f' : '#828ea5'} style={{width: 28, height: 28}} />
           </Link>
-          <Picshow source={getAvatar(currentUser)} />
+          <Picshow source={getAvatar(currentUser)} styles={{marginHorizontal: 22}} />
           <Link onPress={logOut}>
             <Icon name='log-out' fill='#ee246d' style={{width: 25, height: 25}} />
           </Link>

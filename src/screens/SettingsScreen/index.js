@@ -83,6 +83,7 @@ const SettingsScreen = ({navigation}) => {
     });
 
     if (!result.cancelled) {
+      await formik.setFieldTouched('position');
       setBase64Avatar(result.base64);
       setTempAvatar(result.uri)
     }
