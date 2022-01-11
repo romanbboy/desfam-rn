@@ -13,6 +13,7 @@ import actions from "../../store/actions";
 import ListDatebooks from "../../components/list-datebooks";
 import Invitation from "../../components/invitation";
 import {SkeletonList} from "../../components/skeleton";
+import * as Notifications from "expo-notifications";
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -44,6 +45,23 @@ const HomeScreen = ({navigation}) => {
     await fetchData();
     setRefreshing(false);
   }
+
+  // for notifications
+  const lastNotificationResponse = Notifications.useLastNotificationResponse();
+  useEffect(() => {
+    if (lastNotificationResponse && lastNotificationResponse.notification.request.content.data.action) {
+      const data = lastNotificationResponse.notification.request.content.data;
+
+      switch(data.action) {
+        case 'assignIssue':
+          navigation.navigate('Datebook', {
+            idDatebook: data.issue.datebook.id,
+            targetDate: data.issue.date
+          });
+          break;
+      }
+    }
+  },[lastNotificationResponse]);
 
   return (
     <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefreshPage} />}>

@@ -24,7 +24,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#EEF2F8"
       },
-      "package": "com.romanbboy.snackcfbd45a246634886ac415d1883fa88bf"
+      "package": "com.romanbboy.snackcfbd45a246634886ac415d1883fa88bf",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

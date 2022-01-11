@@ -21,7 +21,7 @@ const NotepadList = styled.View`
 `
 
 const DatebookScreen = ({route, navigation}) => {
-  const { idDatebook } = route.params;
+  const { idDatebook, targetDate } = route.params;
 
   const dispatch = useDispatch();
 
@@ -29,14 +29,14 @@ const DatebookScreen = ({route, navigation}) => {
   const datebook = useSelector(state => state.datebook.info);
   const issues = useSelector(state => state.datebook.issues);
 
-  const [date, setDate] = useState(moment());
+  const [date, setDate] = useState(moment(targetDate) || moment());
   const [showIssueCreator, setShowIssueCreator] = useState(false);
   const [usersIssues, setUsersIssues] = useState(null);
 
   useFocusEffect(
     useCallback(() => {
       dispatch(actions.getDatebook(idDatebook));
-      dispatch(actions.getDatebookIssues({idDatebook, date: moment()}));
+      dispatch(actions.getDatebookIssues({idDatebook, date}));
       return () => dispatch({type: 'EXIT_DATEBOOK'})
     }, [])
   );

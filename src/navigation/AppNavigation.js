@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'
+import React, {useEffect} from 'react'
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack'
 import HomeScreen from '../screens/HomeScreen'
 import RegistrationScreen from '../screens/RegistrationScreen';
 import LoginScreen from '../screens/LoginScreen';
@@ -19,6 +19,7 @@ const Stack = createStackNavigator();
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
+    // todo shouldShowAlert сделать потом false, что бы уведомление не показывались, пока приложение открыто
     shouldShowAlert: true,
     shouldPlaySound: false,
     shouldSetBadge: false,
@@ -28,37 +29,18 @@ Notifications.setNotificationHandler({
 const AppNavigation = () => {
   const dispatch = useDispatch();
 
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
   useEffect(() => {
     (async () => {
       const accessToken = await asyncStorage.getData('accessToken');
+
       if (accessToken) {
         // todo Не дает получить expoToken, из-за этого не давало зайти в currentUser
-        // let expoToken = await registerForPushNotificationsAsync();
-        //
-        // if (expoToken) await dispatch(actions.setExpoToken(expoToken));
+        let expoToken = await registerForPushNotificationsAsync();
+        if (expoToken) await dispatch(actions.setExpoToken(expoToken));
+
         dispatch(actions.getCurrentUser());
       }
     })();
-
-    // Этот прослушиватель запускается всякий раз, когда получено уведомление, когда приложение находится на переднем плане
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
-
-    // Этот прослушиватель запускается всякий раз, когда пользователь нажимает на уведомление или взаимодействует с ним (работает, когда приложение находится на переднем плане, на заднем плане или убито).
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log('killed');
-    });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
   }, []);
 
   return (

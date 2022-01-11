@@ -64,14 +64,16 @@ const IssueCreatorForm = ({date, datebook}) => {
           formik.resetForm();
 
           // todo push
-          /*if (Platform.OS !== 'web' && issue.target.expoToken) {
+          // todo сделать что бы на ТЕБЯ НЕ приходило уведомление, только при назначении задачи на другого (для прода)
+          if (Platform.OS !== 'web' && issue.target.expoToken) {
             sendPushNotification({
               to: issue.target.expoToken,
               sound: 'default',
               title: 'Новая задача!',
-              body: `${issue.creator.username} назначил на тебя задачу`
+              body: `${issue.creator.username} назначил на тебя задачу`,
+              data: {action: 'assignIssue', issue}
             });
-          }*/
+          }
         })
         .catch(e => ToastService.show(e.response.data, 'error'))
         .finally(() => setIsSubmitting(false))

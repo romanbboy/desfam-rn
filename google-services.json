@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "609671472416",
+    "project_id": "desfam-f6b0d",
+    "storage_bucket": "desfam-f6b0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609671472416:android:b4ce60f1486a7ba1e5e345",
+        "android_client_info": {
+          "package_name": "morozinc.desfam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609671472416-dqq54bhmn83i13p1c426hnhl2h5l8h2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTl87nzS5TTOLRifRTpPjsWS5zv2-piTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609671472416-dqq54bhmn83i13p1c426hnhl2h5l8h2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
