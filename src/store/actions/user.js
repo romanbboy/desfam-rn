@@ -30,6 +30,9 @@ const userActions = {
       .then(() => {
         dispatch(userActions.setExpoTokenSuccess())
       })
+      .catch(e => {
+        console.log('-----> ', e);
+      })
   },
 };
 

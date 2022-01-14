@@ -19,6 +19,7 @@ import {Platform, View} from "react-native";
 import {sendPushNotification} from "../../utils/notifications";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import {animated, useSpring} from "@react-spring/native";
+import * as Notifications from "expo-notifications";
 
 const IssueCreatorFormExecutor = styled.View`
   margin-top: 10px;
@@ -73,6 +74,14 @@ const IssueCreatorForm = ({date, datebook}) => {
               body: `${issue.creator.username} назначил на тебя задачу`,
               data: {action: 'assignIssue', issue}
             });
+
+            /*Notifications.scheduleNotificationAsync({
+              content: {
+                title: 'Happy new minute!!!!',
+                body: 'Test'
+              },
+              trigger: new Date(moment().add(20, 's').toString())
+            });*/
           }
         })
         .catch(e => ToastService.show(e.response.data, 'error'))
@@ -154,6 +163,18 @@ const IssueCreatorForm = ({date, datebook}) => {
                               }}/>
             )}
           </>}
+
+          {/*{Platform.OS !== 'web' && <>
+            <MyText style={{marginBottom: 5, marginTop: 10}}>уведомление на: (не обязательно)</MyText>
+
+            {Platform.OS === 'ios' && (
+              <DateTimePicker value={dateForm.toDate()}
+                              mode="time"
+                              locale='ru'
+                              style={{width: 68}}/>)
+            }
+          </>}*/}
+
         </IssueCreatorFormExecutor>
       </Container>
     </AnimatedView>

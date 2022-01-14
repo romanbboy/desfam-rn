@@ -19,7 +19,6 @@ const Stack = createStackNavigator();
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    // todo shouldShowAlert сделать потом false, что бы уведомление не показывались, пока приложение открыто
     shouldShowAlert: true,
     shouldPlaySound: false,
     shouldSetBadge: false,
