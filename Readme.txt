@@ -10,3 +10,6 @@
  - [google play] должен быть файл google-services.json сгенерированный в firebase для desfam проекта
  - [google play] в файле google-services.json client->api_key->current_key должен совпадать с API key 1 (в console.cloud.google.com)
 
+4. Что бы сбросить кеш (особенно когда меяешь .env)
+  - запускаешь expo start --clear
+  - для web не работает очистка кеша для .env (пока хз как решить)

@@ -23,6 +23,11 @@ import * as Notifications from "expo-notifications";
 
 const IssueCreatorFormExecutor = styled.View`
   margin-top: 10px;
+`;
+
+const IssueCreatorFormNotification = styled.View`
+  margin-top: 10px;
+  flex-direction: row;
 `
 
 const IssueCreatorForm = ({date, datebook}) => {
@@ -38,7 +43,10 @@ const IssueCreatorForm = ({date, datebook}) => {
   const [dateForm, setDateForm] = useState(date);
   const [targetDayDatebook, setTargetDayDatebook] = useState(date);
 
+  const [showNotificationTimeBlock, setShowNotificationTimeBlock] = useState(false);
+
   const [showAndroidDatePicker, setShowAndroidDatePicker] = useState(false);
+  const [showAndroidTimePicker, setShowAndroidTimePicker] = useState(false);
 
   const formik = useFormik({
     initialValues: {description: ''},
@@ -64,7 +72,6 @@ const IssueCreatorForm = ({date, datebook}) => {
           matchDate && dispatch(actions.addIssueSuccess({issue}));
           formik.resetForm();
 
-          // todo push
           // todo сделать что бы на ТЕБЯ НЕ приходило уведомление, только при назначении задачи на другого (для прода)
           if (Platform.OS !== 'web' && issue.target.expoToken) {
             sendPushNotification({
@@ -75,13 +82,14 @@ const IssueCreatorForm = ({date, datebook}) => {
               data: {action: 'assignIssue', issue}
             });
 
-            /*Notifications.scheduleNotificationAsync({
-              content: {
-                title: 'Happy new minute!!!!',
-                body: 'Test'
-              },
-              trigger: new Date(moment().add(20, 's').toString())
-            });*/
+
+            // Покажется уведомление по расписанию
+            if (showNotificationTimeBlock) {
+              Notifications.scheduleNotificationAsync({
+                content: { title: issue.content },
+                trigger: new Date(moment(dateForm).toString())
+              });
+            }
           }
         })
         .catch(e => ToastService.show(e.response.data, 'error'))
@@ -132,7 +140,10 @@ const IssueCreatorForm = ({date, datebook}) => {
                   size='small'
                   value={() => <MyText>{datebook.participants[selectedIndex.row].username}</MyText>}
                   style={{marginBottom: 10}}
-                  onSelect={index => setSelectedIndex(index)}>
+                  onSelect={index => {
+                    setSelectedIndex(index);
+                    (datebook.participants[index.row].id !== currentUser.id) && setShowNotificationTimeBlock(false)
+                  }}>
             {datebook.participants.map(el => <SelectItem style={{paddingVertical: 5}} key={el.id} title={() => <MyText>{el.username}</MyText>}/>)}
           </Select>
 
@@ -164,16 +175,54 @@ const IssueCreatorForm = ({date, datebook}) => {
             )}
           </>}
 
-          {/*{Platform.OS !== 'web' && <>
-            <MyText style={{marginBottom: 5, marginTop: 10}}>уведомление на: (не обязательно)</MyText>
 
-            {Platform.OS === 'ios' && (
-              <DateTimePicker value={dateForm.toDate()}
-                              mode="time"
-                              locale='ru'
-                              style={{width: 68}}/>)
-            }
-          </>}*/}
+          {/*Блок уведомление*/}
+          {Platform.OS !== 'web' && (datebook.participants[selectedIndex.row].id === currentUser.id) && <IssueCreatorFormNotification>
+            <Button appearance='ghost'
+                  size='tiny'
+                  style={{marginRight: 10}}
+                  onPress={() => setShowNotificationTimeBlock(!showNotificationTimeBlock)}
+                  accessoryLeft={() =>
+                    <Icon name='bell-outline'
+                          fill={showNotificationTimeBlock ? THEME.BLUE_COLOR : THEME.GRAY_COLOR_DARK}
+                          style={{width: 27, height: 27}}
+                    />
+                  }
+            />
+
+
+            {showNotificationTimeBlock && <>
+
+              {Platform.OS === 'ios' && (
+                <DateTimePicker value={dateForm.toDate()}
+                                mode="time"
+                                locale='ru'
+                                onChange={(e, date) => setDateForm(moment(date))}
+                                style={{width: 68}}/>)
+              }
+
+              {Platform.OS === 'android' && <>
+                <Button appearance='outline'
+                        status='basic'
+                        size='tiny'
+                        onPress={() => setShowAndroidTimePicker(true)}
+                >
+                  {() => <MyText>{dateForm.format('HH:mm')}</MyText>}
+                </Button>
+
+                {showAndroidTimePicker && (
+                  <DateTimePicker value={dateForm.toDate()}
+                                  mode="time"
+                                  locale='ru'
+                                  onChange={(e, date) => {
+                                    setShowAndroidTimePicker(false);
+                                    date && setDateForm(moment(date))
+                                  }}
+                  />
+                )}
+              </>}
+            </>}
+          </IssueCreatorFormNotification>}
 
         </IssueCreatorFormExecutor>
       </Container>
