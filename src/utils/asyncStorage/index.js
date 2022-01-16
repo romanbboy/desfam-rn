@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ToastService from "../../components/toast/ToastService";
 
 export default {
   async storeData(key, value) {
@@ -6,7 +7,7 @@ export default {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem(key, jsonValue);
     } catch (e) {
-      console.log('-----> ', e);
+      ToastService.show('AsyncStorage storeData не сработал', 'error')
     }
   },
 
@@ -15,7 +16,7 @@ export default {
       const jsonValue = await AsyncStorage.getItem(key);
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch(e) {
-      console.log('-----> ', e);
+      ToastService.show('AsyncStorage getData не сработал', 'error');
     }
   },
 

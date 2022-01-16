@@ -112,7 +112,7 @@ const IssueCreatorForm = ({date, datebook}) => {
   return (
     <AnimatedView style={{overflow: 'hidden', ...propsUI}}>
       <Container>
-        <FormLabel style={{fontFamily: 'open-semibold', lineHeight: 35}}>Добавить новый задачу</FormLabel>
+        <FormLabel style={{fontFamily: 'open-semibold', lineHeight: 35}}>Добавить новую задачу</FormLabel>
         <FlexBlock alignItems='center'>
           <FlexBlock styles={{marginRight: 5}}>
             <Input value={formik.values.description}
