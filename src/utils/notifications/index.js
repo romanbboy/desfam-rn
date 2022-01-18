@@ -1,22 +1,36 @@
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
-import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import {Platform} from "react-native";
+import ToastService from "../../components/toast/ToastService";
 
 export const registerForPushNotificationsAsync = async () => {
-  let token;
+  let token, finalStatus;
   if (Platform.OS !== 'web') {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
+
+    try {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      finalStatus = existingStatus;
+    } catch (e) {
+      ToastService.show(`Error Notifications.getPermissionsAsync (${e})`, 'error');
     }
+
     if (finalStatus !== 'granted') {
-      console.log('-----> ', 'Не получилось получить токен для Push уведомлений');
+      try {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      } catch (e) {
+        ToastService.show(`Error Notifications.requestPermissionsAsync (${e})`, 'error');
+      }
+    }
+
+    if (finalStatus !== 'granted') {
+      ToastService.show(`Не получилось получить токен для Push уведомлений (${finalStatus})`, 'error');
       return;
     }
+
     token = (await Notifications.getExpoPushTokenAsync()).data;
+
+    if (!token) ToastService.show(`Error Notifications.getExpoPushTokenAsync (${token})`, 'error');
     console.log(token);
   } else {
     console.log('-----> ', 'Пуш уведомления только для телефонов, пока что');

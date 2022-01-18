@@ -37,10 +37,10 @@ const HomeScreen = ({navigation}) => {
   useEffect(() => {
     if (currentUser) {
       (async () => {
+        await fetchData();
+
         let expoToken = await registerForPushNotificationsAsync();
         if (expoToken) await dispatch(actions.setExpoToken(expoToken));
-
-        await fetchData();
       })()
     }
   }, [currentUser]);
