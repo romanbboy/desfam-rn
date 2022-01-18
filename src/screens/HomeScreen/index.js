@@ -14,6 +14,7 @@ import ListDatebooks from "../../components/list-datebooks";
 import Invitation from "../../components/invitation";
 import {SkeletonList} from "../../components/skeleton";
 import * as Notifications from "expo-notifications";
+import {registerForPushNotificationsAsync} from "../../utils/notifications";
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -35,7 +36,12 @@ const HomeScreen = ({navigation}) => {
 
   useEffect(() => {
     if (currentUser) {
-      (async () => await fetchData())()
+      (async () => {
+        let expoToken = await registerForPushNotificationsAsync();
+        if (expoToken) await dispatch(actions.setExpoToken(expoToken));
+
+        await fetchData();
+      })()
     }
   }, [currentUser]);
 

@@ -31,14 +31,7 @@ const AppNavigation = () => {
   useEffect(() => {
     (async () => {
       const accessToken = await asyncStorage.getData('accessToken');
-
-      if (accessToken) {
-        // todo Не дает получить expoToken, из-за этого не давало зайти в currentUser
-        let expoToken = await registerForPushNotificationsAsync();
-        if (expoToken) await dispatch(actions.setExpoToken(expoToken));
-
-        dispatch(actions.getCurrentUser());
-      }
+      if (accessToken) dispatch(actions.getCurrentUser());
     })();
   }, []);
 
