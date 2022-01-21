@@ -72,18 +72,20 @@ const IssueCreatorForm = ({date, datebook}) => {
           matchDate && dispatch(actions.addIssueSuccess({issue}));
           formik.resetForm();
 
-          // todo сделать что бы на ТЕБЯ НЕ приходило уведомление, только при назначении задачи на другого (для прода)
           if (Platform.OS !== 'web' && issue.target.expoToken) {
-            sendPushNotification({
-              to: issue.target.expoToken,
-              sound: 'default',
-              title: 'Новая задача!',
-              body: `${issue.creator.username} назначил на тебя задачу`,
-              data: {action: 'assignIssue', issue}
-            });
 
+            // Отправляем уведомление только для других пользователей
+            if (issue.target.id !== currentUser.id) {
+              sendPushNotification({
+                to: issue.target.expoToken,
+                sound: 'default',
+                title: 'Новая задача!',
+                body: `${issue.creator.username} назначил на тебя задачу`,
+                data: {action: 'assignIssue', issue}
+              });
+            }
 
-            // Покажется уведомление по расписанию
+            // Покажется уведомление по расписанию для текущего пользователя
             if (showNotificationTimeBlock) {
               Notifications.scheduleNotificationAsync({
                 content: { title: issue.content },

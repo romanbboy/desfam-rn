@@ -23,6 +23,12 @@ export const mainReducer = (state = defaultState, action) => {
         datebookList: [...state.datebookList].filter(el => el.id !== payload.datebook.id)
       }
 
+    case 'DELETE_DATEBOOK_SUCCESS':
+      return {
+        ...state,
+        datebookList: [...state.datebookList].filter(el => el.id !== payload.datebook.id)
+      }
+
     case 'GET_ALL_INVITATIONS_SUCCESS':
       return {...state, invitations: payload}
 

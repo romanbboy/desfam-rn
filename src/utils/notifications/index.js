@@ -28,10 +28,15 @@ export const registerForPushNotificationsAsync = async () => {
       return;
     }
 
-    token = (await Notifications.getExpoPushTokenAsync()).data;
+    try {
+      let tokenData = await Notifications.getExpoPushTokenAsync();
+      token = tokenData.data;
+    } catch (e) {
+      ToastService.show(`Notifications.getExpoPushTokenAsync (${token})`, 'error');
+    }
 
     if (!token) ToastService.show(`Error Notifications.getExpoPushTokenAsync (${token})`, 'error');
-    console.log(token);
+
   } else {
     console.log('-----> ', 'Пуш уведомления только для телефонов, пока что');
   }

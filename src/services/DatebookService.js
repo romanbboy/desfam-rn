@@ -15,5 +15,8 @@ export default {
   },
   async deleteParticipant({datebook, participant}){
     return await api().delete(`datebooks/${datebook.id}/delete/participant/${participant.id}`);
+  },
+  async deleteDatebook(datebook){
+    return await api().delete(`datebooks/${datebook.id}`);
   }
 }

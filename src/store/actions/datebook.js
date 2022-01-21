@@ -49,6 +49,14 @@ const datebookActions = {
         dispatch(datebookActions.getDatebookIssuesSuccess({issues: res.data}));
       })
   },
-}
+
+  deleteDatebookSuccess: payload => ({type: 'DELETE_DATEBOOK_SUCCESS', payload}),
+  deleteDatebook: datebook => async (dispatch) => {
+    return DatebookService.deleteDatebook(datebook)
+      .then(() => {
+        dispatch(datebookActions.deleteDatebookSuccess({datebook}));
+      })
+  },
+};
 
 export default datebookActions;

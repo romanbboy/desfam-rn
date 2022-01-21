@@ -11,6 +11,7 @@ import MyToast from "./src/components/toast";
 import {StatusBar} from "react-native";
 import moment from "moment";
 import 'moment/min/locales';
+import {THEME} from "./src/styles";
 
 moment.locale('ru');
 
@@ -30,7 +31,7 @@ const App = () => {
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
-      <StatusBar barStyle='dark-content' animated={true} />
+      <StatusBar barStyle='dark-content' backgroundColor={THEME.BG_COLOR} animated={true} />
       <ApplicationProvider {...eva} theme={eva.light}>
         <Provider store={store}>
           <AppNavigation />

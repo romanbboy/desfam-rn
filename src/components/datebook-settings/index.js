@@ -11,6 +11,7 @@ import actions from "../../store/actions";
 import ToastService from "../toast/ToastService";
 import {useNavigation} from "@react-navigation/native";
 import RemoveParticipant from "../remove-participant";
+import {sendPushNotification} from "../../utils/notifications";
 
 const DatebookSettings = ({currentUser, datebook}) => {
   const dispatch = useDispatch();
@@ -37,6 +38,33 @@ const DatebookSettings = ({currentUser, datebook}) => {
           .catch(e => ToastService.show(e.response.data, 'error'))
       }
     })
+  };
+
+  const confirmDeleteDatebook = () => {
+    ModalService.confirm({
+      msg: `ОПАСНАЯ ОПЕРАЦИЯ!\nТочно УДАЛИТЬ задачник?`,
+      accept: async () => {
+        return dispatch(actions.deleteDatebook(datebook))
+          .then(() => {
+            navigation.navigate('Home');
+            ToastService.show(`Задачник "${datebook.title}" удален`);
+
+            datebook.participants.forEach(participant => {
+              if (participant.id !== currentUser.id && participant.expoToken) {
+                sendPushNotification({
+                  to: participant.expoToken,
+                  sound: 'default',
+                  title: 'Задачник удален',
+                  body: `${currentUser.username} удалил задачник "${datebook.title}"`,
+                });
+              }
+            });
+
+            return true;
+          })
+          .catch(e => ToastService.show(e.response.data, 'error'))
+      }
+    })
   }
 
   return (
@@ -58,11 +86,15 @@ const DatebookSettings = ({currentUser, datebook}) => {
               <Icon name='person-add' fill={THEME.GREEN_SUCCESS} style={{width: 30, height: 30}} />
             </MyButtonTiny>
 
-            <MyButtonTiny onPress={() => setSettingsTarget('removeParticipant')} style={{marginHorizontal: 25}}>
+            <MyButtonTiny onPress={() => setSettingsTarget('removeParticipant')} style={{marginLeft: 25}}>
               <Icon name='person-remove' fill={THEME.RED_COLOR} style={{width: 30, height: 30}} />
             </MyButtonTiny>
 
-            <MyButtonTiny onPress={() => setSettingsShow(false)}>
+            <MyButtonTiny onPress={confirmDeleteDatebook} style={{marginLeft: 25}}>
+              <Icon name='close-circle' fill={THEME.RED_DANGER} style={{width: 30, height: 30}} />
+            </MyButtonTiny>
+
+            <MyButtonTiny onPress={() => setSettingsShow(false)} style={{marginLeft: 25}}>
               <Icon name='close-circle-outline' fill={THEME.GRAY_COLOR_DARK} style={{width: 30, height: 30}} />
             </MyButtonTiny>
           </>}

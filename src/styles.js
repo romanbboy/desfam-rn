@@ -12,7 +12,9 @@ export const THEME = {
   GREEN_COLOR: '#29aaac',
   GREEN_COLOR_DARK: '#1a6d6e',
   GREEN_SUCCESS: '#6ad281',
+  RED_COLOR_LIGHT: '#e3a0a0',
   RED_COLOR: '#ee246d',
+  RED_DANGER: '#fc0000',
   GRAY_COLOR: '#ced1db',
   GRAY_COLOR_DARK: '#a2a8bb'
 }

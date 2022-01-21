@@ -41,15 +41,15 @@ const AddParticipant = ({onClose}) => {
           formikAddParticipant.resetForm();
           ToastService.show(res.data);
 
-          // todo push
-          /*if (settingsAddParticipant.user.expoToken) {
+          if (settingsAddParticipant.user.expoToken) {
             sendPushNotification({
               to: settingsAddParticipant.user.expoToken,
               sound: 'default',
               title: 'Приглашение в задачник',
               body: `Тебя пригласили в задачник "${datebook.title}"`
             });
-          }*/
+          }
+
           return {};
         })
         .catch(e => ToastService.show(e.response.data, 'error'))

@@ -12,7 +12,6 @@ import actions from "../store/actions";
 import {useDispatch} from "react-redux";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import DatebookScreen from "../screens/DatebookScreen";
-import {registerForPushNotificationsAsync} from "../utils/notifications";
 import * as Notifications from "expo-notifications";
 
 const Stack = createStackNavigator();
