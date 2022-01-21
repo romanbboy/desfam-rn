@@ -20,8 +20,16 @@ const userActions = {
 
   logoutSuccess: () => ({type: 'LOGOUT_SUCCESS'}),
   logout: () => async (dispatch) => {
-    await asyncStorage.removeItem('accessToken');
-    dispatch(userActions.logoutSuccess());
+    return UserService.setExpoToken('')
+      .then(async () => {
+        dispatch(userActions.logoutSuccess());
+      })
+      .catch(e => {
+        console.log('-----> ', e);
+      })
+      .finally(async () => {
+        await asyncStorage.removeItem('accessToken');
+      })
   },
 
   setExpoTokenSuccess: () => ({type: 'SET_EXPO_TOKEN_SUCCESS'}),
