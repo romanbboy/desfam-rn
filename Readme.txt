@@ -8,7 +8,8 @@
 
 3. Для push уведомлений
  - [google play] должен быть файл google-services.json сгенерированный в firebase для desfam проекта
- - [google play] в файле google-services.json client->api_key->current_key должен совпадать с API key 1 (в console.cloud.google.com)
+ - [google play] в файле google-services.json client->api_key->current_key должен совпадать с Android key (auto created by Firebase)
+   (в console.cloud.google.com/apis/credentials)
 
 4. Что бы сбросить кеш (особенно когда меяешь .env)
   - запускаешь expo start --clear

@@ -54,10 +54,14 @@ const IssueCreatorForm = ({date, datebook}) => {
     onSubmit: async (form) => {
       setIsSubmitting(true);
 
+      let identifierNotification = '';
+      if (showNotificationTimeBlock) identifierNotification = `notice-issue--${+ Date.now()}-${currentUser.id}`;
+
       const issueRequest = {
         date: dateForm,
         datebook: datebook.id,
         target: datebook.participants[selectedIndex.row].id,
+        notification: identifierNotification,
         content: form.description
       };
 
@@ -88,6 +92,7 @@ const IssueCreatorForm = ({date, datebook}) => {
             // Покажется уведомление по расписанию для текущего пользователя
             if (showNotificationTimeBlock) {
               Notifications.scheduleNotificationAsync({
+                identifier: identifierNotification,
                 content: { title: issue.content },
                 trigger: new Date(moment(dateForm).toString())
               });
