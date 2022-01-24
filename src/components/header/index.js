@@ -1,11 +1,10 @@
 import React, {Fragment} from 'react'
 import styled from 'styled-components/native';
 import {Platform, Pressable} from 'react-native';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import getAvatar from '../../utils/getAvatar'
 import SvgLogo from '../icons/logo';
 import {Link} from '../typography'
-import actions from "../../store/actions";
 import Picshow from "../picshow";
 import {Icon} from "@ui-kitten/components";
 import {THEME} from "../../styles";
@@ -25,14 +24,7 @@ const HeaderPanel = styled.View`
 `
 
 const Header = ({navigation, route}) => {
-  const dispatch = useDispatch();
-
   const currentUser = useSelector(state => state.auth.currentUser);
-
-  const logOut = () => {
-    dispatch(actions.logout())
-      .then(() => navigation.navigate('Login'));
-  }
 
   return (
     <HeaderWrap>
@@ -59,10 +51,7 @@ const Header = ({navigation, route}) => {
           <Link onPress={() => navigation.navigate('Settings')}>
             <Icon name='settings' fill={route.name === 'Settings' ? '#5b687f' : '#828ea5'} style={{width: 28, height: 28}} />
           </Link>
-          <Picshow source={getAvatar(currentUser)} styles={{marginHorizontal: 22}} />
-          <Link onPress={logOut}>
-            <Icon name='log-out' fill='#ee246d' style={{width: 25, height: 25}} />
-          </Link>
+          <Picshow source={getAvatar(currentUser)} styles={{marginLeft: 22}} />
         </Fragment>}
       </HeaderPanel>
     </HeaderWrap>

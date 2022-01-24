@@ -3,7 +3,7 @@ import {Image, Platform, ScrollView, View} from "react-native";
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from "react-redux";
 import * as ImagePicker from 'expo-image-picker';
-import getAvatar from '../../utils/getAvatar'
+import getAvatar from '../../utils/getAvatar';
 
 import Wrapper from "../../components/wrapper";
 import Container from "../../components/container";
@@ -89,6 +89,11 @@ const SettingsScreen = ({navigation}) => {
     }
   };
 
+  const logOut = () => {
+    dispatch(actions.logout())
+      .then(() => navigation.navigate('Login'));
+  }
+
   return (
     <ScrollView>
       <Wrapper>
@@ -145,11 +150,14 @@ const SettingsScreen = ({navigation}) => {
 
             {!!notice.msg && <FieldNotice type={notice.type}>{notice.msg}</FieldNotice>}
 
-            <FormActions>
+            <FormActions styles={{justifyContent: 'space-between'}}>
               <MyButton onPress={formik.handleSubmit}
                         isSubmitting={isSubmitting}
                         disabled={!(formik.isValid && formik.dirty && !isSubmitting)}>
                 Сохранить
+              </MyButton>
+              <MyButton onPress={logOut} status='danger'>
+                Выйти из аккаунта
               </MyButton>
             </FormActions>
           </FormWrap>

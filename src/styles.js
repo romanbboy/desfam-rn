@@ -14,8 +14,15 @@ export const THEME = {
   GREEN_SUCCESS: '#6ad281',
   RED_COLOR_LIGHT: '#e3a0a0',
   RED_COLOR: '#ee246d',
+  RED_COLOR_DARK: '#a60c44',
   RED_DANGER: '#fc0000',
   GRAY_COLOR: '#ced1db',
   GRAY_COLOR_DARK: '#a2a8bb'
+};
+
+export const BUTTON_THEME = {
+  primary: [THEME.BLUE_COLOR, THEME.BLUE_COLOR_DARK],
+  danger: [THEME.RED_COLOR, THEME.RED_COLOR_DARK],
+  disabled: [THEME.GRAY_COLOR, THEME.GRAY_COLOR_DARK]
 }
 

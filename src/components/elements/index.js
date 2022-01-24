@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import {THEME} from "../../styles";
+import {BUTTON_THEME, THEME} from "../../styles";
 import {TouchableWithoutFeedback} from "react-native";
 import {MyText} from "../typography";
 import Spinner from "../spinner";
@@ -39,17 +39,17 @@ export const ButtonStyled = styled.View`
   border-radius: 8px;
   ${props => props.styles}
 `
-export const MyButton = (props) => {
-  const [bgColor, setBgColor] = useState(THEME.BLUE_COLOR);
+export const MyButton = ({status = 'primary', onPress, disabled, isSubmitting, children}) => {
+  const [bgColor, setBgColor] = useState(BUTTON_THEME[status][0]);
 
   return (
-    <TouchableWithoutFeedback onPress={props.onPress}
-                              onPressIn={() => setBgColor(THEME.BLUE_COLOR_DARK)}
-                              onPressOut={() => setBgColor(THEME.BLUE_COLOR)}
-                              disabled={props.disabled} >
-      <ButtonStyled styles={{backgroundColor: props.disabled ? THEME.GRAY_COLOR : bgColor}}>
-        {!props.isSubmitting && <MyText style={{color: '#fff'}}>{props.children}</MyText>}
-        {!!props.isSubmitting && <Spinner />}
+    <TouchableWithoutFeedback onPress={onPress}
+                              onPressIn={() => setBgColor(BUTTON_THEME[status][1])}
+                              onPressOut={() => setBgColor(BUTTON_THEME[status][0])}
+                              disabled={disabled} >
+      <ButtonStyled styles={{backgroundColor: disabled ? THEME.GRAY_COLOR : bgColor}}>
+        {!isSubmitting && <MyText style={{color: '#fff'}}>{children}</MyText>}
+        {!!isSubmitting && <Spinner />}
       </ButtonStyled>
     </TouchableWithoutFeedback>
   )
