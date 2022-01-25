@@ -56,14 +56,14 @@ export const AddNewDatebook = ({onClose}) => {
 
       <FormWrap>
         <FormGroup>
-          <FormLabel weight='bold'>Добавить новый задачник</FormLabel>
+          <FormLabel weight='bold'>Добавить групповой задачник</FormLabel>
           <FlexBlock alignItems='center'>
             <FlexBlock styles={{marginRight: 10}}>
               <Input value={formikAddNewDatebook.values.datebook}
                      onBlur={formikAddNewDatebook.handleBlur('datebook')}
                      status={(formikAddNewDatebook.errors.datebook && formikAddNewDatebook.touched.datebook) ? 'error' : 'success'}
                      maxLength={50}
-                     placeholder='Название задачника, сообщества'
+                     placeholder='Название задачника'
                      placeholderTextColor="#ced1db"
                      onChangeText={formikAddNewDatebook.handleChange('datebook')} />
             </FlexBlock>

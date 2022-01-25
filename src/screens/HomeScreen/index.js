@@ -15,6 +15,7 @@ import Invitation from "../../components/invitation";
 import {SkeletonList} from "../../components/skeleton";
 import * as Notifications from "expo-notifications";
 import {registerForPushNotificationsAsync} from "../../utils/notifications";
+import PersonalDatebook from "../../components/personal-datebook";
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -25,7 +26,6 @@ const HomeScreen = ({navigation}) => {
 
   const [showAddNewDatebook, setShowAddNewDatebook] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-
 
   const fetchData = async () => {
     await Promise.all([
@@ -72,14 +72,29 @@ const HomeScreen = ({navigation}) => {
   return (
     <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefreshPage} />}>
       <Wrapper>
+        {!currentUser && <Container>
+          <MyText style={{marginBottom: 5}}>Войди или зарегистируйся для того, что бы:</MyText>
+          <MyText style={{fontFamily: 'open-semibold', marginBottom: 2}}>1. Вести личный задачник</MyText>
+          <MyText style={{fontFamily: 'open-semibold', marginBottom: 2}}>2. Добавлять заметки</MyText>
+          <MyText style={{fontFamily: 'open-semibold', marginBottom: 2}}>3. Создавать групповые задачники</MyText>
+        </Container>}
+
         {currentUser && <>
+
+          {/*Приглашения в групповые задачники*/}
           {!!invitations.length && <Styled.MainInvitations>
             {invitations.map(invitation => <Invitation key={invitation.id} invitation={invitation} />)}
           </Styled.MainInvitations>}
 
+
+          {/*Личный задачник*/}
+          <PersonalDatebook />
+
+
+          {/*Создание группового задачника*/}
           {!showAddNewDatebook && <Styled.MainActions>
             <Styled.MainAction>
-              <MyText style={{fontFamily: 'open-semibold', marginRight: 8}}>Добавить новый задачник</MyText>
+              <MyText style={{fontFamily: 'open-semibold', marginRight: 8}}>Создать групповой задачник</MyText>
               <MyButtonTiny onPress={() => setShowAddNewDatebook(true)}>
                 <Icon name='plus-square' fill={THEME.BLUE_COLOR} style={{width: 35, height: 35}} />
               </MyButtonTiny>
@@ -88,19 +103,15 @@ const HomeScreen = ({navigation}) => {
 
           {showAddNewDatebook && <AddNewDatebook onClose={() => setShowAddNewDatebook(false)} />}
 
-          {/*Список задачников*/}
+          {/*Список групповых задачников*/}
           {!datebooks && <SkeletonList />}
           {datebooks && <View>
             {!!datebooks.length && <ListDatebooks datebooks={datebooks} user={currentUser} />}
             {!datebooks.length && <Container>
-              <MyText style={{textAlign: 'center'}}>Тут появится список ваших задачников</MyText>
+              <MyText style={{textAlign: 'center'}}>Тут появится список групповых задачников</MyText>
             </Container>}
           </View>}
         </>}
-
-        {!currentUser && <Container>
-          <MyText style={{textAlign: 'center'}}>Войди или зарегистируйся для того, что бы создать задачник</MyText>
-        </Container>}
 
       </Wrapper>
     </ScrollView>

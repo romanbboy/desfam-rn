@@ -13,4 +13,4 @@
 
 4. Что бы сбросить кеш (особенно когда меяешь .env)
   - запускаешь expo start --clear
-  - для web не работает очистка кеша для .env (пока хз как решить)
+  - для web нужно почистить папки babel-loader (development, production) .expo->web->cache

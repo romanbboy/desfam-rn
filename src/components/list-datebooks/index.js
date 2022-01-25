@@ -11,7 +11,7 @@ const ListDatebooks = ({user, datebooks}) => {
 
   return (
     <Container>
-      <H2Text type="h1" style={{marginBottom: 20}}>Все задачники</H2Text>
+      <H2Text type="h1" style={{marginBottom: 20}}>Групповые задачники</H2Text>
 
       {datebooks.map(datebook => <Styled.ListDatebooksItem key={datebook.id}>
         <Styled.ListDatebooksItemIcon>

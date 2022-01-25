@@ -11,7 +11,7 @@ import {THEME} from "../../styles";
 
 const HeaderWrap = styled.View`
   flex-direction: row;
-  padding: ${Platform.OS === 'ios' ? '50px 20px 20px' : '20px 10px'};
+  padding: ${Platform.OS === 'ios' ? '50px 20px 20px' : '10px'};
   justify-content: space-between;
   align-items: center;
   background-color: ${THEME.BG_COLOR};
