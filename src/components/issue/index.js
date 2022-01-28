@@ -34,17 +34,17 @@ const IssueNotificationInfo = styled.View`
   margin-right: -5px; 
 `;
 
-const Issue = ({issue}) => {
+const Issue = ({issue, type}) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.currentUser);
 
   const changeStatus = () => {
-    if ([issue.target.id, issue.creator.id].includes(currentUser.id)) {
+    if ((type !== 'personal' && [issue.target.id, issue.creator.id].includes(currentUser.id)) || type === 'personal') {
       ModalService.confirm({
         msg: issue.status ? `Отменить готовность?` : `Задача выполнена?`,
         accept: async () => {
-          return dispatch(actions.changeStatusIssue(issue))
+          return dispatch(actions.changeStatusIssue(issue, type))
             .then(() => true)
             .catch(e => ToastService.show(e.response.data, 'error'))
         }
@@ -53,11 +53,11 @@ const Issue = ({issue}) => {
   }
 
   const deleteIssue = () => {
-    if (currentUser.id === issue.creator.id) {
+    if (currentUser.id === issue.creator.id || type === 'personal') {
       ModalService.confirm({
         msg: `Удалить задачу?`,
         accept: async () => {
-          return dispatch(actions.deleteIssue(issue))
+          return dispatch(actions.deleteIssue(issue, type))
             .then(() => true)
             .catch(e => ToastService.show(e.response.data, 'error'))
             .finally(async () => {
@@ -71,7 +71,7 @@ const Issue = ({issue}) => {
   }
 
   return (
-    <IssueWrap backGround={issue.status ? '#99e0a9' : '#eef2f8'}
+    <IssueWrap backGround={issue.status ? '#99e0a9' : THEME.GRAY_COLOR_LIGHT}
                activeOpacity={0.7}
                underlayColor='#A4C936'
                onPress={changeStatus}
@@ -85,7 +85,7 @@ const Issue = ({issue}) => {
         <MyText style={{fontSize: 10, marginLeft: 3}}>{moment(issue.date).format('HH:mm')}</MyText>
       </IssueNotificationInfo>}
 
-      {issue.target.id !== issue.creator.id && (
+      {(type !== 'personal') && (issue.target.id !== issue.creator.id) && (
         <Picshow source={getAvatar(issue.creator)}
                  avatarStyles={{width: 20, height: 20}}
                  styles={{position: 'absolute', right: -5, top: -5}} />

@@ -17,6 +17,7 @@ export const THEME = {
   RED_COLOR: '#ee246d',
   RED_COLOR_DARK: '#a60c44',
   RED_DANGER: '#fc0000',
+  GRAY_COLOR_LIGHT: '#e0dcdc',
   GRAY_COLOR: '#ced1db',
   GRAY_COLOR_DARK: '#a2a8bb'
 };

@@ -28,12 +28,19 @@ const PersonalIssueCreatorFormSettings = styled.View`
 const PersonalIssueCreatorFormNotification = styled.View`
   margin-top: 10px;
   flex-direction: row;
+`;
+
+const PersonalIssueCreatorFormClose= styled.View`
+  position: absolute;
+  top: 5px;
+  right: 5px;
 `
 
-const PersonalIssueCreatorForm = () => {
+const PersonalIssueCreatorForm = ({onClose}) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.currentUser);
+  const personalDatebook = useSelector(state => state.main.personalDatebook);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -55,46 +62,34 @@ const PersonalIssueCreatorForm = () => {
 
       const issueRequest = {
         date: dateForm,
+        datebook: personalDatebook.idDatebook,
         notification: identifierNotification,
-        content: form.description
+        content: form.description,
+        creator: currentUser.id
       };
+      
+      dispatch(actions.addIssue(issueRequest))
+        .then(res => {
+          const issue = res.data;
+          
+          dispatch(actions.addPersonalIssueSuccess({issue}));
+          formik.resetForm();
 
-      // dispatch(actions.addIssue(issueRequest))
-      //   .then(res => {
-      //     const issue = res.data;
-      //     const matchDate = moment(issue.date).isSame(targetDayDatebook, 'day');
-      //     const postfixMsg = !matchDate ? `на ${moment(issue.date).format('DD.MM.YYYY')}` : '';
-      //
-      //     ToastService.show(`Задача добавлена ${postfixMsg}`);
-      //
-      //     matchDate && dispatch(actions.addIssueSuccess({issue}));
-      //     formik.resetForm();
-      //
-      //     if (Platform.OS !== 'web' && issue.target.expoToken) {
-      //
-      //       // Отправляем уведомление только для других пользователей
-      //       if (issue.target.id !== currentUser.id) {
-      //         sendPushNotification({
-      //           to: issue.target.expoToken,
-      //           sound: 'default',
-      //           title: 'Новая задача!',
-      //           body: `${issue.creator.username} назначил на тебя задачу`,
-      //           data: {action: 'assignIssue', issue}
-      //         });
-      //       }
-      //
-      //       // Покажется уведомление по расписанию для текущего пользователя
-      //       if (showNotificationTimeBlock) {
-      //         Notifications.scheduleNotificationAsync({
-      //           identifier: identifierNotification,
-      //           content: { title: issue.content },
-      //           trigger: new Date(moment(dateForm).toString())
-      //         });
-      //       }
-      //     }
-      //   })
-      //   .catch(e => ToastService.show(e.response.data, 'error'))
-      //   .finally(() => setIsSubmitting(false))
+          if (Platform.OS !== 'web' && currentUser.expoToken) {
+            // Покажется уведомление по расписанию для текущего пользователя
+            if (showNotificationTimeBlock) {
+              Notifications.scheduleNotificationAsync({
+                identifier: identifierNotification,
+                content: { title: issue.content },
+                trigger: new Date(moment(dateForm).toString())
+              });
+            }
+          }
+
+          onClose();
+        })
+        .catch(e => ToastService.show(e.response.data, 'error'))
+        .finally(() => setIsSubmitting(false))
     }
   });
 
@@ -108,6 +103,12 @@ const PersonalIssueCreatorForm = () => {
   return (
     <AnimatedView style={{overflow: 'hidden', ...propsUI}}>
       <Container>
+        <PersonalIssueCreatorFormClose>
+          <MyButtonTiny onPress={onClose}>
+            <Icon name='close-outline' style={{width: 30, height: 30}} />
+          </MyButtonTiny>
+        </PersonalIssueCreatorFormClose>
+
         <FormLabel style={{fontFamily: 'open-semibold', lineHeight: 35}}>Добавить новую задачу</FormLabel>
         <FlexBlock alignItems='center'>
           <FlexBlock styles={{marginRight: 5}}>

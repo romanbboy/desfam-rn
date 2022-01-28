@@ -12,7 +12,7 @@ import {RefreshControl, ScrollView, View} from "react-native";
 import actions from "../../store/actions";
 import ListDatebooks from "../../components/list-datebooks";
 import Invitation from "../../components/invitation";
-import {SkeletonList} from "../../components/skeleton";
+import {SkeletonList, SkeletonList2} from "../../components/skeleton";
 import * as Notifications from "expo-notifications";
 import {registerForPushNotificationsAsync} from "../../utils/notifications";
 import PersonalDatebook from "../../components/personal-datebook";
@@ -21,6 +21,7 @@ const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.currentUser);
+  const personalDatebook = useSelector(state => state.main.personalDatebook);
   const datebooks = useSelector(state => state.main.datebookList);
   const invitations = useSelector(state => state.main.invitations);
 
@@ -29,6 +30,7 @@ const HomeScreen = ({navigation}) => {
 
   const fetchData = async () => {
     await Promise.all([
+      dispatch(actions.getPersonalDatebook()),
       dispatch(actions.getAllDatebooks()),
       dispatch(actions.getAllInvitations())
     ])
@@ -88,7 +90,8 @@ const HomeScreen = ({navigation}) => {
 
 
           {/*Личный задачник*/}
-          <PersonalDatebook />
+          {!personalDatebook && <SkeletonList2 />}
+          {personalDatebook && <PersonalDatebook />}
 
 
           {/*Создание группового задачника*/}

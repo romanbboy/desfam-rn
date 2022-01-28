@@ -18,6 +18,14 @@ const datebookActions = {
       })
   },
 
+  getPersonalDatebookSuccess: (payload) => ({type: 'GET_PERSONAL_DATEBOOK_SUCCESS', payload}),
+  getPersonalDatebook: () => async (dispatch) => {
+    return DatebookService.getPersonal()
+      .then(res => {
+        dispatch(datebookActions.getPersonalDatebookSuccess({personalDatebook: res.data}));
+      })
+  },
+
   getDatebookSuccess: (payload) => ({type: 'GET_DATEBOOK_SUCCESS', payload}),
   getDatebook: (id) => async (dispatch) => {
     return DatebookService.get(id)

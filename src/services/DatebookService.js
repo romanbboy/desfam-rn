@@ -4,6 +4,9 @@ export default {
   async add(form){
     return await api().post('datebooks/add', form);
   },
+  async getPersonal(){
+    return await api().get('datebooks/personal');
+  },
   async getAll(){
     return await api().get('datebooks/getAll');
   },
