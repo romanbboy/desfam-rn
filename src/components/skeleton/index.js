@@ -57,6 +57,25 @@ export const SkeletonList2 = () => {
   )
 }
 
+export const SkeletonList3 = () => {
+  return (
+    <View>
+      <SkeletonContent
+        containerStyle={{ flex: 1, width: '100%' }}
+        isLoading={true}
+        boneColor={THEME.GRAY_COLOR_LIGHT}
+        layout={[
+          { width: '100%', height: 34, marginBottom: 10 },
+          { width: '100%', height: 34, marginBottom: 10 },
+          { width: '100%', height: 56, marginBottom: 10 },
+          { width: '100%', height: 34, marginBottom: 10 },
+          { width: '100%', height: 45, marginBottom: 10 },
+          { width: '100%', height: 34, marginBottom: 10 },
+        ]}
+      />
+    </View>
+  )
+}
 
 export const SkeletonNotepad = () => {
   return (

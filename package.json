@@ -48,7 +48,8 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "*",
     "styled-components": "^5.3.3",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "expo-clipboard": "~2.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

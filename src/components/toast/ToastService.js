@@ -10,7 +10,7 @@ export default {
   ) => {
     Toast.show({
       type: 'desfamToast',
-      topOffset: 50,
+      topOffset: 40,
       props: {
         text, type
       },

@@ -13,6 +13,7 @@ import {useDispatch} from "react-redux";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import DatebookScreen from "../screens/DatebookScreen";
 import * as Notifications from "expo-notifications";
+import NotesScreen from "../screens/NotesScreen";
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,7 @@ const AppNavigation = () => {
       <NavigationContainer>
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Notes" component={NotesScreen} />
           <Stack.Screen name="Datebook" component={DatebookScreen} />
           <Stack.Screen name="Registration" component={RegistrationScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />

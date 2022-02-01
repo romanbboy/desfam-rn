@@ -18,6 +18,7 @@ export const AddNewDatebookClose = styled.View`
   position: absolute;
   top: 5px;
   right: 5px;
+  z-index: 2;
 `
 
 export const AddNewDatebook = ({onClose}) => {

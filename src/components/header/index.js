@@ -48,10 +48,15 @@ const Header = ({navigation, route}) => {
         </Fragment>}
 
         {currentUser && <Fragment>
-          <Link onPress={() => navigation.navigate('Settings')}>
-            <Icon name='settings' fill={route.name === 'Settings' ? '#5b687f' : '#828ea5'} style={{width: 28, height: 28}} />
+          <Link onPress={() => navigation.navigate('Notes')}>
+            <Icon name='clipboard-outline'
+                  fill={route.name === 'Notes' ? THEME.BLUE_COLOR : THEME.BLUE_COLOR_LIGHT}
+                  style={{width: 28, height: 28}} />
           </Link>
-          <Picshow source={getAvatar(currentUser)} styles={{marginLeft: 22}} />
+          <Link onPress={() => navigation.navigate('Settings')}>
+            <Icon name='settings' fill={route.name === 'Settings' ? '#5b687f' : '#828ea5'} style={{width: 28, height: 28, marginHorizontal: 22}} />
+          </Link>
+          <Picshow source={getAvatar(currentUser)} />
         </Fragment>}
       </HeaderPanel>
     </HeaderWrap>

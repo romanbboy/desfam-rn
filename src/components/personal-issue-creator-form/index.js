@@ -34,6 +34,7 @@ const PersonalIssueCreatorFormClose= styled.View`
   position: absolute;
   top: 5px;
   right: 5px;
+  z-index: 2;
 `
 
 const PersonalIssueCreatorForm = ({onClose}) => {

@@ -7,6 +7,7 @@ export const THEME = {
 
   LINK_COLOR: '#00adee',
   LINK_COLOR_ACTIVE: '#1D8BD8',
+  BLUE_COLOR_LIGHT: '#85d1ed',
   BLUE_COLOR: '#00adee',
   BLUE_COLOR_DARK: '#0075a2',
   GREEN_COLOR: '#29aaac',
