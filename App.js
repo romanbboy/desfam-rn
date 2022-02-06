@@ -12,6 +12,7 @@ import {StatusBar} from "react-native";
 import moment from "moment";
 import 'moment/min/locales';
 import {THEME} from "./src/styles";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 
 moment.locale('ru');
 
@@ -29,7 +30,7 @@ const App = () => {
   }
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <IconRegistry icons={EvaIconsPack} />
       <StatusBar barStyle='dark-content' backgroundColor={THEME.BG_COLOR} animated={true} />
       <ApplicationProvider {...eva} theme={eva.light}>
@@ -38,7 +39,7 @@ const App = () => {
         </Provider>
       </ApplicationProvider>
       <MyToast />
-    </>
+    </GestureHandlerRootView>
   )
 }
 

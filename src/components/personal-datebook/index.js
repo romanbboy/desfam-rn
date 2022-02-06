@@ -10,9 +10,9 @@ import PersonalIssueCreatorForm from "../personal-issue-creator-form";
 import {useSelector} from "react-redux";
 import {filterIssuesByDays} from "../../utils/filterIssuesByDays";
 import Issue from "../issue";
-import {LinearGradient} from "expo-linear-gradient";
+// import {LinearGradient} from "expo-linear-gradient";
 import {FlexBlock} from "../flex-block";
-import {SkeletonList2} from "../skeleton";
+// import {SkeletonList2} from "../skeleton";
 
 const PersonalDatebookWrap = styled.View`
 
@@ -94,12 +94,12 @@ const PersonalDatebook = () => {
         </PersonalDatebookSection>}
       </>}
 
-      <LinearGradient
+      {/*<LinearGradient
         start={{x: 0, y: 1}} end={{x: 1, y: 1}}
         locations={[0, 0.15, 0.85, 1]}
         colors={['rgba(255,255,255, 0)', '#cad6f4', '#cad6f4', 'rgba(255,255,255, 0)']}
         style={{height: .5, marginVertical: 15}}
-      />
+      />*/}
     </PersonalDatebookWrap>
   )
 }

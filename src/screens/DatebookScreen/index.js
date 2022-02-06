@@ -14,7 +14,7 @@ import IssueCreatorForm from "../../components/issue-creator-form";
 import {FlexBlock} from "../../components/flex-block";
 import {Icon} from "@ui-kitten/components";
 import Notepad from "../../components/notepad";
-import {SkeletonNotepad} from "../../components/skeleton";
+// import {SkeletonNotepad} from "../../components/skeleton";
 
 const NotepadList = styled.View`
   margin-top: 15px;
@@ -75,10 +75,10 @@ const DatebookScreen = ({route, navigation}) => {
           {showIssueCreator && <IssueCreatorForm date={date} datebook={datebook} />}
 
           {/*Задачники*/}
-          {!usersIssues && <>
-            <SkeletonNotepad />
-            <SkeletonNotepad />
-          </>}
+          {/*{!usersIssues && <>*/}
+          {/*  <SkeletonNotepad />*/}
+          {/*  <SkeletonNotepad />*/}
+          {/*</>}*/}
 
           {usersIssues && <>
             {!!usersIssues.length && <>

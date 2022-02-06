@@ -12,7 +12,7 @@ import {RefreshControl, ScrollView, View} from "react-native";
 import actions from "../../store/actions";
 import ListDatebooks from "../../components/list-datebooks";
 import Invitation from "../../components/invitation";
-import {SkeletonList, SkeletonList2} from "../../components/skeleton";
+// import {SkeletonList, SkeletonList2} from "../../components/skeleton";
 import * as Notifications from "expo-notifications";
 import {registerForPushNotificationsAsync} from "../../utils/notifications";
 import PersonalDatebook from "../../components/personal-datebook";
@@ -90,7 +90,7 @@ const HomeScreen = ({navigation}) => {
 
 
           {/*Личный задачник*/}
-          {!personalDatebook && <SkeletonList2 />}
+          {/*{!personalDatebook && <SkeletonList2 />}*/}
           {personalDatebook && <PersonalDatebook />}
 
 
@@ -107,7 +107,7 @@ const HomeScreen = ({navigation}) => {
           {showAddNewDatebook && <AddNewDatebook onClose={() => setShowAddNewDatebook(false)} />}
 
           {/*Список групповых задачников*/}
-          {!datebooks && <SkeletonList />}
+          {/*{!datebooks && <SkeletonList />}*/}
           {datebooks && <View>
             {!!datebooks.length && <ListDatebooks datebooks={datebooks} user={currentUser} />}
             {!datebooks.length && <Container>
