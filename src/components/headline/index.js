@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 
 import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter'
 import {MyText} from "../typography";
-import {LinearGradient} from "expo-linear-gradient";
+// import {LinearGradient} from "expo-linear-gradient";
 import Calendar from "../calendar";
 import {Button, Icon} from "@ui-kitten/components";
 import {THEME} from "../../styles";
@@ -76,12 +76,12 @@ const Headline = ({date, setDate, issueCreator}) => {
         </HeadlineFullDate>
       </HeadlineDate>
 
-      <LinearGradient
+      {/*<LinearGradient
         start={{x: 0, y: 1}} end={{x: 1, y: 1}}
         locations={[0, 0.15, 0.85, 1]}
         colors={['rgba(255,255,255, 0)', '#cad6f4', '#cad6f4', 'rgba(255,255,255, 0)']}
         style={{height: 1}}
-      />
+      />*/}
     </HeadlineWrap>
   )
 }

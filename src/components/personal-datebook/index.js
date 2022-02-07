@@ -12,7 +12,6 @@ import {filterIssuesByDays} from "../../utils/filterIssuesByDays";
 import Issue from "../issue";
 // import {LinearGradient} from "expo-linear-gradient";
 import {FlexBlock} from "../flex-block";
-// import {SkeletonList2} from "../skeleton";
 
 const PersonalDatebookWrap = styled.View`
 
@@ -43,7 +42,7 @@ const PersonalDatebook = () => {
 
   const [showIssueCreator, setShowIssueCreator] = useState(false);
   const [filteredIssues, setFilteredIssues] = useState(null);
-  
+
   useEffect(() => {
     setFilteredIssues(filterIssuesByDays(personalDatebook.issues))
   }, [personalDatebook.issues])
