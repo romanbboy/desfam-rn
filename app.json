@@ -29,7 +29,8 @@
       },
       "package": "morozinc.desfam",
       "versionCode": 11,
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "permissions": []
     },
     "web": {
       "favicon": "./assets/favicon.png"
