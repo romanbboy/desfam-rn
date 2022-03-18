@@ -37,7 +37,7 @@ const PersonalIssueCreatorFormClose= styled.View`
   z-index: 2;
 `
 
-const PersonalIssueCreatorForm = ({onClose}) => {
+const PersonalIssueCreatorForm = ({selectedDate, onClose}) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.currentUser);
@@ -45,12 +45,16 @@ const PersonalIssueCreatorForm = ({onClose}) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [dateForm, setDateForm] = useState(moment());
+  const [dateForm, setDateForm] = useState(selectedDate || moment());
 
   const [showNotificationTimeBlock, setShowNotificationTimeBlock] = useState(false);
 
   const [showAndroidDatePicker, setShowAndroidDatePicker] = useState(false);
   const [showAndroidTimePicker, setShowAndroidTimePicker] = useState(false);
+
+  useEffect(() => {
+    if (selectedDate) setDateForm(selectedDate);
+  }, [selectedDate])
 
   const formik = useFormik({
     initialValues: {description: ''},
@@ -68,11 +72,11 @@ const PersonalIssueCreatorForm = ({onClose}) => {
         content: form.description,
         creator: currentUser.id
       };
-      
+
       dispatch(actions.addIssue(issueRequest))
         .then(res => {
           const issue = res.data;
-          
+
           dispatch(actions.addPersonalIssueSuccess({issue}));
           formik.resetForm();
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import * as Styled from './styles';
 import {useDispatch, useSelector} from 'react-redux';
 import Wrapper from "../../components/wrapper";
@@ -19,6 +19,7 @@ import PersonalDatebook from "../../components/personal-datebook";
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
+  const refScrollView = useRef();
 
   const currentUser = useSelector(state => state.auth.currentUser);
   const personalDatebook = useSelector(state => state.main.personalDatebook);
@@ -71,8 +72,10 @@ const HomeScreen = ({navigation}) => {
     }
   },[lastNotificationResponse]);
 
+  const scrollToTop = () => refScrollView.current.scrollTo({y: 0})
+
   return (
-    <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefreshPage} />}>
+    <ScrollView ref={refScrollView} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefreshPage} />}>
       <Wrapper>
         {!currentUser && <Container>
           <MyText style={{marginBottom: 5}}>Войди или зарегистируйся для того, что бы:</MyText>
@@ -91,7 +94,7 @@ const HomeScreen = ({navigation}) => {
 
           {/*Личный задачник*/}
           {!personalDatebook && <SkeletonList2 />}
-          {personalDatebook && <PersonalDatebook />}
+          {personalDatebook && <PersonalDatebook scrollToTop={scrollToTop} />}
 
 
           {/*Создание группового задачника*/}

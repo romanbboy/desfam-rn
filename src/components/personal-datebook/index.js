@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 import moment from 'moment';
 import {THEME} from "../../styles";
 import {MyText} from "../typography";
-import {View} from "react-native";
+import {Pressable, View} from "react-native";
 import {MyButtonTiny} from "../elements";
 import {Icon} from "@ui-kitten/components";
 import PersonalIssueCreatorForm from "../personal-issue-creator-form";
@@ -37,15 +37,23 @@ const PersonalDatebookSectionHeader = styled.Text`
   margin: 0 0 12px 0;
 `;
 
-const PersonalDatebook = () => {
+const PersonalDatebook = ({scrollToTop}) => {
   const personalDatebook = useSelector(state => state.main.personalDatebook);
 
   const [showIssueCreator, setShowIssueCreator] = useState(false);
   const [filteredIssues, setFilteredIssues] = useState(null);
 
+  const [selectedDate, setSelectedDate] = useState(null);
+
   useEffect(() => {
     setFilteredIssues(filterIssuesByDays(personalDatebook.issues))
-  }, [personalDatebook.issues])
+  }, [personalDatebook.issues]);
+
+  const setDay = date => {
+    setSelectedDate(date);
+    setShowIssueCreator(true);
+    scrollToTop();
+  }
 
   return (
     <PersonalDatebookWrap>
@@ -60,7 +68,7 @@ const PersonalDatebook = () => {
         </PersonalDatebookAction>
       </PersonalDatebookActions>}
 
-      {showIssueCreator && <PersonalIssueCreatorForm onClose={() => setShowIssueCreator(false)} />}
+      {showIssueCreator && <PersonalIssueCreatorForm selectedDate={selectedDate} onClose={() => setShowIssueCreator(false)} />}
 
 
       {/*Список задач*/}
@@ -71,12 +79,16 @@ const PersonalDatebook = () => {
         </View>}
 
         {!!filteredIssues.today.length && <PersonalDatebookSection style={{marginBottom: 20}}>
-          <PersonalDatebookSectionHeader style={{color: THEME.GREEN_COLOR}}>СЕГОДНЯ</PersonalDatebookSectionHeader>
+          <Pressable onPress={() => setDay(moment())}>
+            <PersonalDatebookSectionHeader style={{color: THEME.GREEN_COLOR}}>СЕГОДНЯ</PersonalDatebookSectionHeader>
+          </Pressable>
           {filteredIssues.today.map(issue => <Issue issue={issue} key={issue.id} type='personal' />)}
         </PersonalDatebookSection>}
 
         {!!filteredIssues.tomorrow.length && <PersonalDatebookSection>
-          <PersonalDatebookSectionHeader style={{color: THEME.BLUE_COLOR_DARK}}>ЗАВТРА</PersonalDatebookSectionHeader>
+          <Pressable onPress={() => setDay(moment().add(1, 'd'))}>
+            <PersonalDatebookSectionHeader style={{color: THEME.BLUE_COLOR_DARK}}>ЗАВТРА</PersonalDatebookSectionHeader>
+          </Pressable>
           {filteredIssues.tomorrow.map(issue => <Issue issue={issue} key={issue.id} type='personal' />)}
         </PersonalDatebookSection>}
 
