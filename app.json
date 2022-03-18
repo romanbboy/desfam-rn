@@ -2,7 +2,7 @@
   "expo": {
     "name": "Desfam",
     "slug": "morozincDesfam",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -28,7 +28,7 @@
         "backgroundColor": "#EEF2F8"
       },
       "package": "morozinc.desfam",
-      "versionCode": 12,
+      "versionCode": 13,
       "googleServicesFile": "./google-services.json",
       "permissions": ["CAMERA"]
     },
